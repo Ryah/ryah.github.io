@@ -9,7 +9,7 @@ body {
     -webkit-animation: Gradient 15s ease infinite;
     -moz-animation: Gradient 15s ease infinite;
     animation: Gradient 15s ease infinite;
-    max-width: 50%;
+    max-width: 500px;
     margin: auto
 }
 
