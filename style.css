@@ -55,6 +55,12 @@ body {
     }
 }
 
+.container {
+    padding-right: 15px;
+    height: 175px;
+    width: 430px;
+}
+
 .content {
     max-width: 500px;
     margin: auto;
