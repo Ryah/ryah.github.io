@@ -56,8 +56,7 @@ body {
 }
 
 .container {
-    padding-right: 15px;
-    width: 430px;
+
 }
 
 .content {
@@ -97,7 +96,9 @@ img {
 
 .container {
     display: flex;
-    align-items: center
+    align-items: center;
+    padding-right: 15px;
+    width: 430px;
 }
 
 .fa {
