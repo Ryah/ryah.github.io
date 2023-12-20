@@ -1,0 +1,176 @@
+:root {
+    --primary-color: #3e90e3;
+    --secondary-color: #00bbff;
+    
+    --linkedin-color: #0077b5;
+    --github-color: #333;
+    --instagram-color: #e1306c;
+    --youtube-color: #ff0000;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', sans-serif;
+}
+
+body {
+    background-color: #e3e3e3;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+body > .card {
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+    padding: 20px;
+    max-width: 700px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 40px;
+}
+
+body > .card > .info .avatar {
+    border-radius: 50%;
+    height: 175px;
+    margin: 0 auto;
+    width: 175px;
+    border: 8px solid var(--primary-color);
+    object-fit: cover;
+}
+
+body > .card > .info > h1 {
+    font-size: 1.5rem;
+    font-weight: 500;
+    margin-top: 20px;
+    text-align: center;
+}
+
+body > .card > .info > p.title {
+    color: #ffffff;
+    padding: 5px 10px;
+    background-color: var(--primary-color);
+    border-radius: 5px;
+    text-align: center;
+    width: fit-content;
+    margin: 5px auto 0;
+}
+
+body > .card > .bio-socials {
+    margin-top: 20px;
+    min-height: 100%;
+    display: block;
+}
+
+body > .card > .bio-socials > .bio {
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #333;
+}
+
+body > .card > .bio-socials > .bio > span {
+    font-weight: 500;
+    background-color: var(--secondary-color);
+    padding: 2px;
+    color: #fff;
+}
+
+body > .card > .bio-socials > .socials {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+body > .card > .bio-socials > .socials > a {
+    display: inline-block;
+    margin: 0 5px;
+    transition: all 0.3s ease;
+    background-color: #fff;
+    padding: 2px;
+    color: var(--linkedin-color);
+}
+
+body > .card > .bio-socials > .socials > a:hover {
+    background-color: var(--linkedin-color);
+    color: #fff;
+    padding: 2px;
+}
+
+body > .card > .bio-socials > .socials > a:visited {
+    color: var(--linkedin-color);
+}
+
+body > .card > .bio-socials > .socials > a:visited:hover {
+    color: #fff;
+}
+
+body > .card > .bio-socials > .socials > a.instagram {
+    color: var(--instagram-color);
+}
+
+body > .card > .bio-socials > .socials > a.instagram:hover {
+    color: #fff;
+    background-color: var(--instagram-color);
+}
+
+body > .card > .bio-socials > .socials > a.instagram:visited {
+    color: var(--instagram-color);
+}
+
+body > .card > .bio-socials > .socials > a.youtube {
+    color: var(--youtube-color);
+}
+
+body > .card > .bio-socials > .socials > a.youtube:hover {
+    color: #fff;
+    background-color: var(--youtube-color);
+}
+
+body > .card > .bio-socials > .socials > a.youtube:visited {
+    color: var(--youtube-color);
+}
+
+body > .card > .bio-socials > .socials > a.github {
+    color: var(--github-color);
+}
+
+body > .card > .bio-socials > .socials > a.github:hover {
+    color: #fff;
+    background-color: var(--github-color);
+}
+
+body > .card > .bio-socials > .socials > a.github:visited {
+    color: var(--github-color);
+}
+
+
+body > .card > .bio-socials > .socials > a.github:visited:hover {
+    color: #fff;
+}
+
+body > .card > .bio-socials > .socials > a.youtube:visited:hover {
+    color: #fff;
+}
+
+body > .card > .bio-socials > .socials > a.instagram:visited:hover {
+    color: #fff;
+}
+
+@media only screen and (max-width: 600px) {
+    .card {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .card > .bio-socials > .bio {
+        text-align: center;
+    }
+}
