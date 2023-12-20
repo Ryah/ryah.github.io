@@ -1,0 +1,88 @@
+@import url('https://fonts.googleapis.com/css2?family=Dosis:wght@600;800&display=swap');
+
+* {
+  font-family: 'Dosis', sans-serif;!important
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;!important
+}
+
+body {
+  /* For mobile phone and others */
+  height: 100vh;
+  background-image: url('/res/background-small.jpeg');
+  background-repeat: no-repeat;
+  background-size: 100%;
+  background-color: #FCF9F4;
+  !important
+  background-attachment: fixed;
+  background-position: bottom center;
+}
+
+@media only screen and (min-width: 600px) {
+  /* For desktops and tablets */
+  body {
+    height: 100vh;
+    background-image: url('/res/background.jpeg');
+    background-repeat: no-repeat;
+    background-size: 100%;
+    background-color: #FCF9F4;!important
+    background-attachment: fixed;
+    background-position: bottom center;
+  }
+  
+  .container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+  .child-container {
+    margin-top: 30vh;
+    box-sizing: border-box;
+  }
+}
+
+.child-container {
+    margin-top: 10vh;
+    box-sizing: border-box;
+  }
+
+.profile {
+  border-radius: 50%;
+  display: flex;
+  margin-left: auto;
+  margin-right: auto;
+  width: 25%;
+  margin-top: 10px;
+  box-sizing: border-box;
+}
+
+.username {
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  padding: 5px;
+  margin-bottom: 3px;
+  box-sizing: border-box;
+}
+
+.bio {
+  padding: 10px;
+  padding-left: 40px;
+  padding-right: 40px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+a {
+  text-decoration: none;
+  color: #623412;
+  font-size: 30px;
+}
+
+.links {
+  text-align: center;
+}
