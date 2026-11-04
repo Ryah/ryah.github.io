@@ -1,0 +1,30 @@
+{
+  "sourceFolder": "FrankenSIM 3.0 Promo/4/Vexa",
+  "images": [
+    {
+      "source": "file_000000009ac081f7853ba9deffb0c5b6.png",
+      "asset": "vexa-neon.webp"
+    },
+    {
+      "source": "file_00000000225081f9bca33567a7d96092.png",
+      "asset": "vexa-at-home.webp"
+    },
+    {
+      "source": "file_00000000c4d08230a78c880f7bd708bd.png",
+      "asset": "vexa-reading.webp"
+    },
+    {
+      "source": "file_00000000c25081f7a8eeb92f61928b30.png",
+      "asset": "vexa-off-duty.webp"
+    },
+    {
+      "source": "Neon Vexa Biotech Lab 16-7 cropped.png",
+      "asset": "vexa-biotech-banner.webp",
+      "variants": [
+        "vexa-biotech-banner-480.webp",
+        "vexa-biotech-banner-960.webp"
+      ],
+      "placement": "Homepage project banner; full 16:7 at all screen sizes"
+    }
+  ]
+}

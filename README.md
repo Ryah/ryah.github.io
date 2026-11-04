@@ -52,3 +52,7 @@ AetherKit descriptions link to the [public SDK reference](https://github.com/Rya
 Vexa?s worldview section and the AetherKit guide are adapted from the public SDK reference, reviewed November 3, 2026. Philosophy belongs to Vexa; SDK-specific authoring guidance lives at `/aetherkit/`. The two small card-text examples are original illustrations of the documented syntax, not tested runtime fixtures. The guide describes prompt-driven behavior and retains version/setup caveats.
 
 Antithesis routing copy was checked against the local `Preset - VEXA.json` in FrankenSIM on November 3, 2026: distributed function blocks, scene-dependent dispatch, and router hook checks. The site describes this experimental prompt architecture without reproducing private procedures. Decorative lightning bolts are inline SVGs using the current text color.
+
+The November 2026 Vexa artwork selection uses four distinct scenes from the supplied `FrankenSIM 3.0 Promo/4/Vexa` folder: neon portrait, couch portrait, reading cover, and off-duty tablet scene. `assets/vexa-art-sources.json` maps the optimized WebP files back to the original filenames. Each has a 480px responsive variant; source PNGs are unchanged. The original branded banner remains the social sharing image.
+
+The homepage project banner now uses the exact 16:7 `Neon Vexa Biotech Lab 16-7 cropped.png` artwork, exported to WebP at 1888, 960, and 480px wide. This banner retains its full aspect ratio on mobile and disables hover zoom to preserve the bottom logo.

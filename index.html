@@ -78,10 +78,15 @@
           <div class="orbit orbit-two" aria-hidden="true"></div>
           <figure class="specimen">
             <img
-              src="assets/vexa-portrait.webp"
-              width="900"
-              height="900"
-              alt="Vexa, a stitched cyberpunk character with magenta hair and mismatched glowing eyes"
+              src="assets/vexa-neon.webp"
+              srcset="
+                assets/vexa-neon-480.webp 480w,
+                assets/vexa-neon.webp     960w
+              "
+              sizes="(max-width: 600px) 85vw, (max-width: 1000px) 65vw, 480px"
+              width="960"
+              height="1050"
+              alt="Vexa with magenta hair and mismatched eyes, holding a mug beside a sleeping cat"
               fetchpriority="high"
             />
           </figure>
@@ -115,10 +120,16 @@
         <article class="project feature-project" data-reveal>
           <a class="project-image" href="vexa/" aria-label="Explore Vexa"
             ><img
-              src="assets/vexa-lab.webp"
-              width="1600"
-              height="900"
-              alt="Vexa in her neon laboratory with the Vexa roleplay simulation wordmark"
+              src="assets/vexa-biotech-banner.webp"
+              srcset="
+                assets/vexa-biotech-banner-480.webp  480w,
+                assets/vexa-biotech-banner-960.webp  960w,
+                assets/vexa-biotech-banner.webp     1888w
+              "
+              sizes="(max-width: 1200px) 90vw, 1200px"
+              width="1888"
+              height="826"
+              alt="Vexa in a neon biotech laboratory above the Vexa AI Roleplay Simulation logo"
               loading="lazy"
           /></a>
           <div class="project-copy">
