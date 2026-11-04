@@ -2,7 +2,7 @@
 
 Personal portfolio and Vexa homepage at **https://ryah.github.io/**.
 
-Plain HTML, CSS, and optional JavaScript for themes and a small dice toy. No dependencies or build step.
+Plain HTML, CSS, and optional JavaScript for themes, specimen lighting, scroll reveals, and an inspiration die. No dependencies or build step.
 GitHub Pages serves the root of `main`; `.nojekyll` keeps the files as written.
 
 ## Edit the site
@@ -10,7 +10,7 @@ GitHub Pages serves the root of `main`; `.nojekyll` keeps the files as written.
 - `index.html`: personal introduction, selected projects, research, and about text.
 - `vexa/index.html`: Vexa overview, project links, and expandable FAQ. Replace the release-information paragraph with a current download and setup guide when ready.
 - `assets/site.css`: shared layout, typography, responsive rules, and light/dark theme variables.
-- `assets/theme.js`: saved theme preference and the interactive d20 inspiration toy. Dark is the brand default; visitors can choose a light version.
+- `assets/theme.js`: saved theme preference specimen lighting, progressive scroll reveals, and the interactive d20 inspiration toy. Dark is the brand default; visitors can choose a light version.
 - `assets/fonts/`: self-hosted Space Grotesk with its Open Font License.
 - `assets/*.webp`: optimized copies of Ryah’s supplied Vexa promotional artwork.
 - `research/telewire/`: public whitepaper HTML/PDF/Markdown, token evidence, and comparison fixtures. No private preset source is included.
@@ -26,7 +26,11 @@ Check both themes and a narrow phone viewport after editing.
 
 Vexa's core palette is Obsidian `#101014`, Electric Magenta `#C0188A`, Toxic Green `#70FF38`, Deep Plum `#48143E`, Gunmetal `#41434A`, and Pale Rose `#E4B4A9`. Shared CSS variables also supply readable text and a pale rose daylight theme.
 
-The hero has a short entrance sequence. Hover/click effects respond to visitors; there are no constant animation loops. `prefers-reduced-motion` disables animations, and dice results appear immediately. Without JavaScript, navigation and the native FAQ still work; JavaScript-only buttons stay hidden.
+The art direction is Cyberpunk Gothic / Neon Frankenstein: oversized Space Grotesk typography, a tilted specimen portrait with orbital rings, metallic panels, and a floating frosted navigation surface. This is a CSS web approximation of translucent material, not an Apple framework. Panels use a 28px radius and controls use pill shapes; the portrait has its own specimen arch.
+
+The portfolio stays personal, with Vexa as the main project and TeleWire as a separate research feature. Both `/` and `/vexa/` share the design. Existing routes, research files, metadata, and release-status information are preserved.
+
+The hero has a short entrance sequence. Sections reveal once as they enter view. The Reanimate button toggles specimen lighting and exposes its state with `aria-pressed`. The d20 can be rolled again during a transition. There are no constant animation loops or audio. `prefers-reduced-motion` disables motion, and dice results appear immediately. Reduced transparency and increased contrast also have CSS fallbacks. Without JavaScript, navigation, content, research downloads, and native FAQ still work; JavaScript-only controls stay hidden. The theme preference persists when browser storage is available.
 
 ## Update the research
 

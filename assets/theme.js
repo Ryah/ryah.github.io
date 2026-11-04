@@ -1,4 +1,4 @@
-// Shared theme preference and one optional dice toy. No runtime dependencies.
+// Progressive enhancement: theme, specimen power, reveals, and inspiration die.
 (() => {
   let saved;
   try {
@@ -33,6 +33,45 @@
         update();
       });
     }
+    const power = document.querySelector("[data-power]");
+    if (power) {
+      power.hidden = false;
+      power.addEventListener("click", () => {
+        const active = document.body.classList.toggle("is-powered");
+        power.setAttribute("aria-pressed", String(active));
+        power.querySelector("[data-power-label]").textContent = active
+          ? "It is alive"
+          : "Reanimate";
+      });
+    }
+    const motionPreference = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    );
+    if ("IntersectionObserver" in window && !motionPreference.matches) {
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("is-visible");
+              observer.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.08 },
+      );
+      document.querySelectorAll("[data-reveal]").forEach((section) => {
+        section.classList.add("reveal-ready");
+        observer.observe(section);
+      });
+      motionPreference.addEventListener("change", (event) => {
+        if (event.matches) {
+          observer.disconnect();
+          document
+            .querySelectorAll(".reveal-ready")
+            .forEach((section) => section.classList.add("is-visible"));
+        }
+      });
+    }
     const roll = document.querySelector("[data-roll]");
     const result = document.querySelector("[data-roll-result]");
     if (!roll || !result) return;
@@ -55,11 +94,11 @@
       "Let two characters disagree about the same memory.",
       "Leave one promising thread for the next scene.",
     ];
-    let busy = false;
+    let rollAnimation;
     roll.addEventListener("click", () => {
-      if (busy) return;
-      busy = true;
-      roll.setAttribute("aria-disabled", "true");
+      clearTimeout(rollAnimation);
+      roll.classList.remove("is-rolling");
+      void roll.offsetWidth;
       roll.classList.add("is-rolling");
       const value = Math.floor(Math.random() * 20) + 1;
       const finish = () => {
@@ -76,11 +115,9 @@
               ? "Rolled 1. The experiment escaped. Take a break, then try again."
               : `Rolled ${value}. ${ideas[(value - 2) % ideas.length]}`;
         roll.closest(".dice-toy").classList.toggle("is-critical", value === 20);
-        roll.setAttribute("aria-disabled", "false");
-        busy = false;
       };
       if (reducedMotion.matches) finish();
-      else setTimeout(finish, 650);
+      else rollAnimation = setTimeout(finish, 550);
     });
   });
 })();

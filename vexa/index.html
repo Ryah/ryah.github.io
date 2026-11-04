@@ -20,8 +20,8 @@
     />
     <link rel="canonical" href="https://ryah.github.io/vexa/" />
     <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
-    <link rel="stylesheet" href="../assets/site.css?v=neon1" />
-    <script src="../assets/theme.js?v=neon1"></script>
+    <link rel="stylesheet" href="../assets/site.css?v=reanimated1" />
+    <script src="../assets/theme.js?v=reanimated1"></script>
     <link
       rel="preload"
       href="../assets/fonts/space-grotesk.ttf"
@@ -30,29 +30,29 @@
       crossorigin
     />
   </head>
-  <body>
+  <body class="vexa-page">
     <a class="skip" href="#main">Skip to content</a>
     <header class="site-header wrap">
-      <a class="brand" href="../"
-        >ryah<span class="brand-spark" aria-hidden="true">✳</span
-        ><span class="brand-name">Ryan A</span></a
+      <a class="brand" href="../" aria-label="Ryah home"
+        >ryah<span aria-hidden="true">&#10035;</span></a
       >
       <nav class="nav" aria-label="Main navigation">
         <a href="../#work">Projects</a
         ><a href="../vexa/" aria-current="page">Vexa</a
         ><a href="https://github.com/Ryah"
-          >GitHub <span aria-hidden="true">↗</span></a
+          >GitHub <span aria-hidden="true">&#8599;</span></a
         >
-        <button class="theme-toggle" data-theme-toggle type="button" hidden>
-          Theme
-        </button>
       </nav>
+      <button class="theme-toggle" data-theme-toggle type="button" hidden>
+        Light
+      </button>
     </header>
     <main id="main">
       <section class="vexa-hero wrap" aria-labelledby="vexa-title">
         <a class="back" href="../">← Back to Ryah’s lab</a>
+        <p class="eyebrow">Vexa / AI roleplay &amp; simulation</p>
         <div class="vexa-heading">
-          <h1 id="vexa-title">It’s alive.<br />It’s <span>Vexa.</span></h1>
+          <h1 id="vexa-title">A world with<br />a <em>pulse.</em></h1>
           <div class="vexa-hero-copy">
             <p>
               A roleplay preset for worlds with a life of their own. Characters
@@ -72,9 +72,7 @@
             alt="Vexa’s stitched mascot in a magenta and toxic-green laboratory, with the Vexa roleplay simulator wordmark"
             fetchpriority="high"
           />
-          <figcaption>
-            Made by Ryah. Grown from FrankenSIM. Probably needs more testing.
-          </figcaption>
+          <figcaption>Vexa. Created by Ryah. Grown from FrankenSIM.</figcaption>
         </figure>
       </section>
       <section
@@ -103,7 +101,11 @@
           </p>
         </div>
       </section>
-      <section class="systems-section wrap" aria-labelledby="systems-heading">
+      <section
+        data-reveal
+        class="systems-section wrap"
+        aria-labelledby="systems-heading"
+      >
         <h2 class="section-title" id="systems-heading">
           The parts that make it tick.
         </h2>
@@ -117,7 +119,7 @@
             </p>
           </article>
           <article class="system-card">
-            <span class="system-mark" aria-hidden="true">?</span>
+            <span class="system-mark" aria-hidden="true">&#8599;</span>
             <h3>Nobody knows everything.</h3>
             <p>
               What happened and what a character actually knows are different
@@ -173,7 +175,11 @@
           <!-- Add a verified current release and host requirements here. -->
         </div>
       </section>
-      <section class="faq-section wrap" aria-labelledby="details-heading">
+      <section
+        data-reveal
+        class="faq-section wrap"
+        aria-labelledby="details-heading"
+      >
         <h2 class="section-title" id="details-heading">Before you ask...</h2>
         <div class="faq">
           <details>
@@ -214,9 +220,7 @@
       </section>
     </main>
     <footer class="site-footer wrap">
-      <a class="footer-signature" href="../"
-        >ryah<span aria-hidden="true">✳</span></a
-      >
+      <a class="brand" href="../">ryah<span aria-hidden="true">✳</span></a>
       <p>Personal projects. Perpetual tinkering.<br />© 2026 Ryan A / Ryah</p>
       <div>
         <a href="../vexa/">Vexa</a
