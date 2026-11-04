@@ -162,6 +162,13 @@ p {
   gap: 8px;
   line-height: 1;
 }
+.icon-bolt {
+  display: inline-block;
+  width: 0.85em;
+  height: 1em;
+  fill: currentColor;
+  vertical-align: -0.1em;
+}
 .brand span {
   color: var(--accent);
   font-size: 1.65rem;
@@ -578,6 +585,130 @@ body.is-powered .orbit {
   margin-top: 24px;
   font-size: 0.7rem;
   color: var(--muted);
+}
+/* AetherKit is a distinct related project, with its three documented tiers. */
+.sdk-section {
+  padding-bottom: 120px;
+}
+.sdk-panel {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 70px;
+  padding: 60px;
+  border: 1px solid var(--line);
+  border-radius: 28px;
+  background:
+    radial-gradient(ellipse at 0 100%, var(--wash), transparent 70%),
+    var(--surface);
+}
+.sdk-copy h2 {
+  margin: 20px 0 28px;
+  font-size: clamp(2.8rem, 5vw, 4.5rem);
+}
+.sdk-copy > p:not(.eyebrow) {
+  color: var(--muted);
+  font-size: 0.92rem;
+  max-width: 44ch;
+}
+.sdk-copy .button {
+  margin-top: 28px;
+}
+.sdk-related {
+  display: table;
+  margin-top: 22px;
+}
+.sdk-tiers {
+  align-self: center;
+  border-left: 1px solid var(--line);
+  padding-left: 44px;
+}
+.sdk-tiers dl {
+  margin: 28px 0 24px;
+}
+.sdk-tiers dl > div {
+  display: grid;
+  grid-template-columns: 92px 1fr;
+  gap: 20px;
+  align-items: center;
+  margin-top: 28px;
+}
+.sdk-tiers dt {
+  font-size: 1.8rem;
+  letter-spacing: -0.05em;
+  color: var(--link);
+}
+.sdk-tiers dd {
+  margin: 0;
+  font-size: 0.82rem;
+  color: var(--muted);
+}
+.sdk-doc-note {
+  color: var(--muted);
+  font-size: 0.7rem;
+  line-height: 1.8;
+}
+.sdk-on-vexa {
+  padding-top: 110px;
+  padding-bottom: 0;
+}
+.sdk-tiers h3 {
+  margin: 25px 0;
+  font-size: clamp(2.1rem, 3.5vw, 3rem);
+}
+.sdk-description {
+  color: var(--muted);
+  font-size: 0.9rem;
+  margin-bottom: 28px;
+}
+.overview-copy a {
+  color: var(--link);
+  text-decoration: underline;
+}
+.system-card .eyebrow {
+  font-size: 0.64rem;
+}
+.site-footer > div {
+  flex-wrap: wrap;
+}
+@media (max-width: 1023px) {
+  .sdk-panel {
+    padding: 40px;
+    gap: 35px;
+  }
+  .sdk-tiers {
+    padding-left: 30px;
+  }
+  .sdk-tiers dl > div {
+    grid-template-columns: 1fr;
+    gap: 4px;
+    margin-top: 22px;
+  }
+}
+@media (max-width: 767px) {
+  .sdk-section {
+    padding-bottom: 75px;
+  }
+  .sdk-panel {
+    grid-template-columns: 1fr;
+    padding: 32px 25px;
+    gap: 40px;
+  }
+  .sdk-tiers {
+    border-left: 0;
+    border-top: 1px solid var(--line);
+    padding: 30px 0 0;
+  }
+  .sdk-tiers dl > div {
+    grid-template-columns: 80px 1fr;
+    gap: 18px;
+  }
+  .sdk-tiers dt {
+    font-size: 1.65rem;
+  }
+  .sdk-on-vexa {
+    padding-top: 75px;
+    padding-bottom: 0;
+  }
 }
 .about-section {
   display: grid;
@@ -1212,6 +1343,272 @@ body.is-powered .orbit {
   }
   .eyebrow {
     letter-spacing: 0.1em;
+  }
+}
+/* Author guide and Vexa worldview share the site's type and theme tokens. */
+.philosophy-section {
+  display: grid;
+  grid-template-columns: 1fr 1.1fr;
+  gap: 90px;
+  padding-block: 30px 120px;
+}
+.philosophy-intro h2 {
+  margin-block: 24px;
+  font-size: clamp(2.6rem, 4.5vw, 4.3rem);
+}
+.philosophy-intro > p:not(.eyebrow) {
+  color: var(--muted);
+  margin-bottom: 28px;
+}
+.philosophy-principles article {
+  border-top: 1px solid var(--line);
+  padding-block: 24px 30px;
+}
+.philosophy-principles h3 {
+  font-size: 1.4rem;
+  letter-spacing: -0.035em;
+  line-height: 1.2;
+  margin-bottom: 14px;
+}
+.philosophy-principles p {
+  font-size: 0.93rem;
+  color: var(--muted);
+}
+.guide-hero {
+  padding-block: 45px 75px;
+}
+.guide-hero h1 {
+  font-size: clamp(3.1rem, 7vw, 6.5rem);
+  margin-block: 24px 28px;
+}
+.guide-lede {
+  font-size: 1.15rem;
+  color: var(--muted);
+  max-width: 57ch;
+}
+.guide-hero .actions {
+  margin-top: 30px;
+}
+.guide-layout {
+  display: grid;
+  grid-template-columns: 220px minmax(0, 760px);
+  gap: clamp(40px, 7vw, 100px);
+  align-items: start;
+  padding-bottom: 100px;
+}
+.guide-sidebar {
+  position: sticky;
+  top: 110px;
+  font-size: 0.85rem;
+}
+.guide-sidebar nav {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  border-left: 2px solid var(--line);
+  padding-left: 20px;
+}
+.guide-sidebar nav p {
+  margin-bottom: 12px;
+  color: var(--accent);
+}
+.guide-sidebar nav a {
+  padding-block: 10px;
+  color: var(--muted);
+}
+.guide-sidebar nav a:hover {
+  color: var(--link);
+}
+.guide-world-link {
+  display: inline-block;
+  margin: 25px 0 0 22px;
+}
+.guide-content {
+  min-width: 0;
+}
+.guide-content section + section {
+  margin-top: 65px;
+  padding-top: 48px;
+  border-top: 1px solid var(--line);
+}
+.guide-content h2 {
+  font-size: clamp(2rem, 3.1vw, 2.9rem);
+  margin-bottom: 25px;
+  line-height: 1.1;
+  letter-spacing: -0.045em;
+}
+.guide-content h3 {
+  font-size: 1.45rem;
+  margin-block: 30px 18px;
+  letter-spacing: -0.035em;
+  line-height: 1.2;
+}
+.guide-content p {
+  color: var(--muted);
+  max-width: 65ch;
+}
+.guide-content p + p {
+  margin-top: 20px;
+}
+.guide-content p + .text-link {
+  display: inline-block;
+  margin-top: 22px;
+}
+.guide-content code {
+  font-family: ui-monospace, Consolas, monospace;
+  font-size: 0.88em;
+  overflow-wrap: anywhere;
+  color: var(--ink);
+}
+.guide-note {
+  border-left: 3px solid var(--accent);
+  padding: 8px 0 8px 24px;
+  margin-top: 30px;
+  font-size: 0.88rem;
+}
+.guide-note p {
+  margin-top: 10px;
+}
+.guide-levels,
+.guide-annotations {
+  margin: 25px 0;
+}
+.guide-levels > div {
+  padding-block: 24px;
+  border-top: 1px solid var(--line);
+}
+.guide-levels dt {
+  color: var(--link);
+  font-size: 1.65rem;
+  line-height: 1.3;
+}
+.guide-levels dt span {
+  display: block;
+  color: var(--ink);
+  font-size: 0.95rem;
+  margin-top: 5px;
+}
+.guide-levels dd,
+.guide-annotations dd {
+  margin: 12px 0 0;
+  color: var(--muted);
+  font-size: 0.93rem;
+}
+.guide-code {
+  margin-block: 28px;
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  background: var(--surface);
+  overflow: hidden;
+}
+.guide-code figcaption {
+  padding: 15px 24px;
+  border-bottom: 1px solid var(--line);
+  color: var(--link);
+  font-size: 0.78rem;
+}
+.guide-code pre {
+  padding: 24px;
+  margin: 0;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  line-height: 1.8;
+  tab-size: 2;
+}
+.guide-annotations > div {
+  display: grid;
+  grid-template-columns: 130px minmax(0, 1fr);
+  gap: 24px;
+  padding-block: 14px;
+}
+.guide-annotations dd {
+  margin: 0;
+}
+.guide-details {
+  margin-top: 28px;
+  border-block: 1px solid var(--line);
+  padding-block: 18px;
+}
+.guide-details summary {
+  cursor: pointer;
+  line-height: 1.5;
+}
+.guide-details p {
+  margin-top: 18px;
+  font-size: 0.93rem;
+}
+.guide-steps {
+  padding-left: 24px;
+  color: var(--muted);
+}
+.guide-steps li {
+  margin-block: 20px;
+  padding-left: 8px;
+}
+.guide-steps strong {
+  color: var(--ink);
+}
+.guide-next {
+  padding-top: 18px;
+}
+.guide-next .button {
+  margin: 25px 20px 20px 0;
+}
+.guide-next .text-link {
+  display: inline-block;
+}
+@media (max-width: 900px) {
+  .guide-layout {
+    grid-template-columns: 175px minmax(0, 1fr);
+    gap: 35px;
+  }
+  .philosophy-section {
+    gap: 45px;
+  }
+}
+@media (max-width: 767px) {
+  .guide-hero {
+    padding-block: 30px 45px;
+  }
+  .guide-hero .back {
+    margin-bottom: 35px;
+  }
+  .guide-lede {
+    font-size: 1rem;
+  }
+  .guide-layout,
+  .philosophy-section {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 40px;
+  }
+  .guide-sidebar {
+    position: static;
+  }
+  .guide-sidebar nav {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 15px;
+  }
+  .guide-sidebar nav p {
+    grid-column: 1 / -1;
+  }
+  .guide-content section + section {
+    margin-top: 42px;
+    padding-top: 35px;
+  }
+  .guide-code pre {
+    padding: 18px;
+    font-size: 0.83rem;
+  }
+  .guide-code figcaption {
+    padding-inline: 18px;
+  }
+  .guide-annotations > div {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 7px;
+  }
+  .philosophy-section {
+    padding-block: 10px 65px;
   }
 }
 /* The specimen rings may cross their stage, but never widen the viewport. */

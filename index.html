@@ -6,7 +6,7 @@
     <title>Ryan A / Ryah | Projects &amp; Writing</title>
     <meta
       name="description"
-      content="Personal projects by Ryan A (Ryah). Explore Vexa, a stateful roleplay preset, and the TeleWire TRP-AO technical whitepaper."
+      content="Projects by Ryan A (Ryah): Vexa, a SillyTavern/Lumiverse AI roleplay preset; TeleWire TRP-AO, a prompting style; and the related AetherKit card-authoring SDK."
     />
     <meta property="og:title" content="Ryan A / Ryah" />
     <meta
@@ -21,8 +21,8 @@
     />
     <link rel="canonical" href="https://ryah.github.io/" />
     <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
-    <link rel="stylesheet" href="assets/site.css?v=reanimated1" />
-    <script src="assets/theme.js?v=reanimated1"></script>
+    <link rel="stylesheet" href="assets/site.css?v=reanimated3" />
+    <script src="assets/theme.js?v=reanimated2"></script>
     <link
       rel="preload"
       href="assets/fonts/space-grotesk.ttf"
@@ -35,8 +35,15 @@
     <a class="skip" href="#main">Skip to content</a>
     <header class="site-header wrap">
       <a class="brand" href="./" aria-label="Ryah home"
-        >ryah<span aria-hidden="true">&#10035;</span></a
-      >
+        >ryah<span aria-hidden="true"
+          ><svg
+            class="icon-bolt"
+            viewBox="0 0 24 24"
+            aria-hidden="true"
+            focusable="false"
+          >
+            <path d="M13 2 3 14h8l-1 8 11-13h-8l1-7Z" /></svg></span
+      ></a>
       <nav class="nav" aria-label="Main navigation">
         <a href="#work">Projects</a><a href="vexa/">Vexa</a
         ><a href="https://github.com/Ryah"
@@ -117,7 +124,7 @@
           <div class="project-copy">
             <div class="project-heading">
               <div>
-                <p class="eyebrow">AI roleplay &amp; simulation</p>
+                <p class="eyebrow">SillyTavern / Lumiverse preset</p>
                 <h3>Vexa<span class="period">.</span></h3>
               </div>
               <a class="circle-link" href="vexa/" aria-label="Explore Vexa"
@@ -125,8 +132,9 @@
               >
             </div>
             <p>
-              Characters with memories, relationships, and reasons to act. A
-              world that doesn't stop when you leave the room.
+              An AI roleplay preset written in TeleWire TRP-AO. Aether
+              relationships, the ARC Engine, and a world that keeps moving
+              beyond your scene.
             </p>
             <div class="project-bottom">
               <p>Previously FrankenSIM.<br />My ongoing obsession.</p>
@@ -139,6 +147,7 @@
       </section>
       <section
         class="research-section wrap"
+        id="telewire"
         aria-labelledby="research-heading"
         data-reveal
       >
@@ -147,25 +156,23 @@
           href="research/telewire/TeleWire-TRP-AO-Whitepaper.html"
           aria-label="Read the TeleWire TRP-AO whitepaper"
           ><div class="paper-sheet">
-            <span class="paper-kicker">Research / Prompt architecture</span
+            <span class="paper-kicker">Prompting style / Research</span
             ><strong>TeleWire<br />TRP-AO<span>&#8599;</span></strong>
             <div class="paper-lines" aria-hidden="true"></div>
             <span class="paper-foot">Ryan A<br />Read the whitepaper</span>
           </div></a
         >
         <div class="research-copy">
-          <p class="eyebrow">Behind the experiment</p>
-          <h2 id="research-heading">
-            There's a method<br />to the <em>madness.</em>
-          </h2>
+          <p class="eyebrow">Prompting style</p>
+          <h2 id="research-heading">TeleWire<br /><em>TRP-AO.</em></h2>
           <p>
-            How do you give a world structure without writing a novel of
-            instructions? TeleWire TRP-AO explores compact rules, symbolic cues,
-            and organized recall.
+            A prompting style for compact, structured instructions. Named rules,
+            symbolic cues, and staged workflows make complex prompts easier to
+            organize and inspect.
           </p>
           <p class="small-copy">
-            The architecture behind Vexa, with token comparisons you can inspect
-            and reproduce.
+            Vexa is one project written in TeleWire TRP-AO. The whitepaper
+            explains the method and includes reproducible token comparisons.
           </p>
           <a
             class="text-link prominent"
@@ -178,6 +185,52 @@
             ><a href="research/telewire/TeleWire-TRP-AO-Whitepaper.pdf"
               >Download PDF &#8595;</a
             >
+          </div>
+        </div>
+      </section>
+      <section
+        class="sdk-section wrap"
+        id="aetherkit"
+        aria-labelledby="sdk-heading"
+        data-reveal
+      >
+        <div class="sdk-panel">
+          <div class="sdk-copy">
+            <p class="eyebrow">Related to Vexa / Card-authoring SDK</p>
+            <h2 id="sdk-heading">AetherKit<br /><em>SDK.</em></h2>
+            <p>
+              Give your character card its own pacing and mechanics. AetherKit
+              lets authors supply story arcs and extend the simulation with
+              custom hooks, persistent state, and dice.
+            </p>
+            <a class="button" href="aetherkit/"
+              >Explore the SDK <span aria-hidden="true">&#8599;</span></a
+            >
+            <a class="text-link sdk-related" href="vexa/#aetherkit"
+              >How it relates to Vexa <span aria-hidden="true">&#8599;</span></a
+            >
+          </div>
+          <div class="sdk-tiers">
+            <p class="eyebrow">Three levels of author control</p>
+            <dl>
+              <div>
+                <dt>Flags</dt>
+                <dd>Declare scene conditions for the router to evaluate.</dd>
+              </div>
+              <div>
+                <dt>Specs</dt>
+                <dd>Author arc beats, pacing, and parallel story tracks.</dd>
+              </div>
+              <div>
+                <dt>Hooks</dt>
+                <dd>
+                  Add custom functions and routes for your card’s mechanics.
+                </dd>
+              </div>
+            </dl>
+            <p class="sdk-doc-note">
+              The SDK reference uses the earlier FrankenSIM name.
+            </p>
           </div>
         </div>
       </section>
@@ -229,20 +282,35 @@
         </aside>
       </section>
       <div class="closing wrap" aria-hidden="true">
-        IT'S ALIVE<span>&#10035;</span>
+        IT'S ALIVE<span
+          ><svg
+            class="icon-bolt"
+            viewBox="0 0 24 24"
+            aria-hidden="true"
+            focusable="false"
+          >
+            <path d="M13 2 3 14h8l-1 8 11-13h-8l1-7Z" /></svg
+        ></span>
       </div>
     </main>
     <footer class="site-footer wrap">
       <a class="brand" href="./"
-        >ryah<span aria-hidden="true">&#10035;</span></a
-      >
+        >ryah<span aria-hidden="true"
+          ><svg
+            class="icon-bolt"
+            viewBox="0 0 24 24"
+            aria-hidden="true"
+            focusable="false"
+          >
+            <path d="M13 2 3 14h8l-1 8 11-13h-8l1-7Z" /></svg></span
+      ></a>
       <p>
         Personal projects. Perpetual tinkering.<br />&copy; 2026 Ryan A / Ryah
       </p>
       <div>
         <a href="vexa/">Vexa</a
-        ><a href="research/telewire/TeleWire-TRP-AO-Whitepaper.html"
-          >Whitepaper</a
+        ><a href="research/telewire/TeleWire-TRP-AO-Whitepaper.html">TeleWire</a
+        ><a href="aetherkit/">AetherKit</a
         ><a href="https://github.com/Ryah/ryah.github.io"
           >Site source &#8599;</a
         >

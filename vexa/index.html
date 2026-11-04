@@ -6,7 +6,7 @@
     <title>Vexa | A Roleplay &amp; Simulation Preset by Ryah</title>
     <meta
       name="description"
-      content="Vexa is Ryah’s roleplay and simulation preset, evolving from FrankenSIM with structured prompting, persistent character state, and knowledge boundaries."
+      content="Vexa is a SillyTavern/Lumiverse AI roleplay preset written in TeleWire TRP-AO, featuring Aether relationships, ARC pacing, Antithesis, and Chekhov’s Gun."
     />
     <meta property="og:title" content="Vexa by Ryah" />
     <meta property="og:type" content="website" />
@@ -20,8 +20,8 @@
     />
     <link rel="canonical" href="https://ryah.github.io/vexa/" />
     <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
-    <link rel="stylesheet" href="../assets/site.css?v=reanimated1" />
-    <script src="../assets/theme.js?v=reanimated1"></script>
+    <link rel="stylesheet" href="../assets/site.css?v=reanimated3" />
+    <script src="../assets/theme.js?v=reanimated2"></script>
     <link
       rel="preload"
       href="../assets/fonts/space-grotesk.ttf"
@@ -34,8 +34,15 @@
     <a class="skip" href="#main">Skip to content</a>
     <header class="site-header wrap">
       <a class="brand" href="../" aria-label="Ryah home"
-        >ryah<span aria-hidden="true">&#10035;</span></a
-      >
+        >ryah<span aria-hidden="true"
+          ><svg
+            class="icon-bolt"
+            viewBox="0 0 24 24"
+            aria-hidden="true"
+            focusable="false"
+          >
+            <path d="M13 2 3 14h8l-1 8 11-13h-8l1-7Z" /></svg></span
+      ></a>
       <nav class="nav" aria-label="Main navigation">
         <a href="../#work">Projects</a
         ><a href="../vexa/" aria-current="page">Vexa</a
@@ -50,14 +57,14 @@
     <main id="main">
       <section class="vexa-hero wrap" aria-labelledby="vexa-title">
         <a class="back" href="../">← Back to Ryah’s lab</a>
-        <p class="eyebrow">Vexa / AI roleplay &amp; simulation</p>
+        <p class="eyebrow">Vexa / SillyTavern &amp; Lumiverse preset</p>
         <div class="vexa-heading">
           <h1 id="vexa-title">A world with<br />a <em>pulse.</em></h1>
           <div class="vexa-hero-copy">
             <p>
-              A roleplay preset for worlds with a life of their own. Characters
-              remember, relationships change, and things happen while you’re
-              looking the other way.
+              An AI roleplay preset for SillyTavern and Lumiverse, written in
+              TeleWire TRP-AO. Characters carry history, relationships resist
+              easy answers, and the world keeps moving beyond your scene.
             </p>
             <a class="button" href="#overview"
               >Meet the experiment <span aria-hidden="true">↓</span></a
@@ -90,15 +97,104 @@
         </div>
         <div class="overview-copy">
           <p>
-            Under the hood, it’s a prompt preset. Modular rules, a staged
-            prompting workflow, and persistent state keep track of things like
-            memories, relationships, and locations.
+            Vexa brings together relationship models, story pacing, spatial
+            continuity, and persistent state. Its prompt rules coordinate what
+            characters feel, what they know, and what they do next.
           </p>
           <p>
-            TeleWire TRP-AO is the symbolic authoring approach I use to organize
-            those instructions. The goal is continuity: a world that can build
-            on what came before.
+            <a href="../#telewire">TeleWire TRP-AO</a> is the separate prompting
+            style used to write those rules.
+            <a href="../aetherkit/">AetherKit SDK</a>
+            gives card authors a way to supply their own story structure and
+            mechanics.
           </p>
+        </div>
+      </section>
+      <section
+        class="philosophy-section wrap"
+        id="philosophy"
+        aria-labelledby="philosophy-heading"
+      >
+        <div class="philosophy-intro">
+          <p class="eyebrow">The worldview behind Vexa</p>
+          <h2 id="philosophy-heading">
+            You inhabit a life.<br />The world has<br /><em>other plans.</em>
+          </h2>
+          <p>
+            Vexa approaches roleplay as a world simulation. Your character
+            belongs to that world, with a past that predates the first message.
+            Everyone else has a life to get on with, too.
+          </p>
+          <a class="text-link" href="#systems-heading"
+            >See the systems behind it ↓</a
+          >
+        </div>
+        <div class="philosophy-principles">
+          <article>
+            <h3>The reader arrives. The character already lives here.</h3>
+            <p>
+              You, the reader, inhabit <code>{{user}}</code>, a person with
+              history, relationships, and secrets. You discover that life
+              through play. When a choice needs backstory, the scene should
+              surface it first through a message, an object, or a conversation.
+            </p>
+          </article>
+          <article>
+            <h3>You see the glance. You decide what it means.</h3>
+            <p>
+              Narration follows your character’s senses. A glance is visible;
+              jealousy is an interpretation. NPCs can misread one another or
+              hide what they feel. The prose carries that fallible surface,
+              while the internal state records what is happening underneath.
+              Essential clues belong in observable words, actions, or objects.
+            </p>
+          </article>
+          <article>
+            <h3>Nobody is waiting to be the supporting cast.</h3>
+            <p>
+              NPCs have errands, grudges, loyalties, and ambitions that exist
+              independently of you. They act off-screen. Leave a conflict alone
+              and someone else may settle it, worsen it, or walk away before you
+              return.
+            </p>
+          </article>
+          <article>
+            <h3>A bad roll belongs to the story.</h3>
+            <p>
+              With the corresponding frontend dice setup, rolls arrive before
+              the model writes the outcome. Vexa’s rules ask it to honor those
+              results. A refusal can stand, an attempt can fail, and death is
+              possible. The story has to survive consequences rather than assume
+              you win.
+            </p>
+          </article>
+          <article>
+            <h3>Love can keep its resentment.</h3>
+            <p>
+              Fondness and friction grow independently. Affection does not
+              cancel a grudge, and a single apology does not clear a shared
+              history. Characters can care deeply and still resist you; those
+              contradictions give relationships somewhere to go.
+            </p>
+          </article>
+          <article>
+            <h3>Learn the world by living in it.</h3>
+            <p>
+              Places, customs, and old arguments enter conversation as things
+              people already know. Meaning builds through context. You get room
+              to be curious and uncertain, with important information revealed
+              through the scene instead of an opening glossary.
+            </p>
+          </article>
+          <article>
+            <h3>A story moves when something changes.</h3>
+            <p>
+              The four-act ARC spine progresses when its objective resolves or
+              hard-fails. Parallel stories grow around it, and failure leaves a
+              mark on what follows. Time adds pressure; it does not
+              automatically settle the plot.
+            </p>
+          </article>
         </div>
       </section>
       <section
@@ -107,41 +203,105 @@
         aria-labelledby="systems-heading"
       >
         <h2 class="section-title" id="systems-heading">
-          The parts that make it tick.
+          Under the stitched skin.
         </h2>
         <div class="systems-grid">
           <article class="system-card">
-            <span class="system-mark" aria-hidden="true">↺</span>
-            <h3>Characters carry history.</h3>
+            <p class="eyebrow">Relationships &amp; emotional gates</p>
+            <h3>Aether Matrix &amp; Dam</h3>
             <p>
-              Relationships, memories, and changing circumstances get a place to
-              persist between turns.
+              Fondness and friction grow separately, in each direction. A
+              character can love you and resent you. Emotional gates open
+              through events; an apology doesn’t erase the history.
             </p>
           </article>
           <article class="system-card">
-            <span class="system-mark" aria-hidden="true">&#8599;</span>
-            <h3>Nobody knows everything.</h3>
+            <p class="eyebrow">Mood &amp; character fidelity</p>
+            <h3>Aether Sola &amp; Tide</h3>
             <p>
-              What happened and what a character actually knows are different
-              things. Vexa gives that distinction its own rules.
+              Tenderness, fury, dread, and yearning sit beneath a separate
+              outward temperature. Feelings carry between scenes and pass
+              through the character’s personality, rather than replacing it.
             </p>
           </article>
           <article class="system-card">
-            <span class="system-mark" aria-hidden="true">↗</span>
-            <h3>Life goes on off-screen.</h3>
+            <p class="eyebrow">Long-form pacing</p>
+            <h3>ARC Engine</h3>
             <p>
-              Character agendas, off-screen activity, and consequences help the
-              world reach beyond the current scene.
+              Four-act Kishōtenketsu arcs, objective-gated progression, and
+              parallel story tracks. Beats wait for their conditions; major
+              choices and failed tracks leave consequences in future play.
             </p>
           </article>
           <article class="system-card">
-            <span class="system-mark" aria-hidden="true">{ }</span>
-            <h3>The weird has structure.</h3>
+            <p class="eyebrow">Unfinished business</p>
+            <h3>Chekhov’s Gun</h3>
             <p>
-              Named rules, turn-level procedures, and serialized state connect
-              the creative parts to a repeatable workflow.
+              Unresolved details become story promises. Time, character, and
+              prerequisite locks hold them until a natural opening; a payoff can
+              resolve the thread or grow into a larger track.
             </p>
           </article>
+          <article class="system-card">
+            <p class="eyebrow">Experimental dynamic chain of thought</p>
+            <h3>Antithesis</h3>
+            <p>
+              Reasoning follows the scene. A router checks the current setup and
+              selects a route for an empty scene, one character, or an ensemble,
+              calling the procedures that apply along the way. Callable
+              <code>&lt;fn:x&gt;</code> blocks live throughout the prompt,
+              forming a dynamic CoT rather than a single prompt block worked
+              through as a fixed checklist.
+            </p>
+            <p>
+              This is also where <a href="../aetherkit/">AetherKit SDK</a>
+              injections enter the flow: card-authored flags and hooks bring
+              custom instructions into the scene’s reasoning route.
+            </p>
+          </article>
+          <article class="system-card">
+            <p class="eyebrow">Spatial continuity &amp; independent lives</p>
+            <h3>Atlas &amp; World Turns</h3>
+            <p>
+              Rooms, floors, and connected exits give movement a geography.
+              On-screen and off-screen NPCs pursue their own agendas, with
+              travel constrained by time and position.
+            </p>
+          </article>
+        </div>
+      </section>
+      <section
+        class="sdk-section sdk-on-vexa wrap"
+        id="aetherkit"
+        aria-labelledby="aetherkit-heading"
+        data-reveal
+      >
+        <div class="sdk-panel">
+          <div class="sdk-copy">
+            <p class="eyebrow">For character-card creators</p>
+            <h2 id="aetherkit-heading">Make it<br /><em>your world.</em></h2>
+            <p>
+              AetherKit SDK is the related card-authoring toolkit: flags for
+              scene modes, specs for authored arcs and tracks, and hooks for
+              custom mechanics. Add persistent card state and custom dice to
+              carry those mechanics across turns.
+            </p>
+            <a class="button" href="../aetherkit/"
+              >Explore the SDK guide <span aria-hidden="true">&#8599;</span></a
+            >
+          </div>
+          <div class="sdk-tiers">
+            <p class="eyebrow">AetherKit SDK</p>
+            <h3>Write the beats.<br />Shape the rules.</h3>
+            <p class="sdk-description">
+              Build a paced mystery, a pursuit, or a custom game mechanic around
+              your card’s story.
+            </p>
+            <p class="sdk-doc-note">
+              The published reference uses the earlier FrankenSIM name. Check
+              its setup and integration requirements for your preset version.
+            </p>
+          </div>
         </div>
       </section>
       <section
@@ -150,7 +310,15 @@
         aria-labelledby="get-heading"
       >
         <div class="release-note">
-          <span class="note-pin" aria-hidden="true">✳</span>
+          <span class="note-pin" aria-hidden="true"
+            ><svg
+              class="icon-bolt"
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+              focusable="false"
+            >
+              <path d="M13 2 3 14h8l-1 8 11-13h-8l1-7Z" /></svg
+          ></span>
           <h2 id="get-heading">Still on the workbench.</h2>
           <p>
             This is Vexa’s new home. I’ll add the current release, setup
@@ -169,7 +337,7 @@
             ><a
               class="text-link"
               href="../research/telewire/TeleWire-TRP-AO-Whitepaper.html"
-              >Read the architecture whitepaper</a
+              >Read about the TeleWire prompting style</a
             >
           </div>
           <!-- Add a verified current release and host requirements here. -->
@@ -193,10 +361,11 @@
           <details>
             <summary>What’s TeleWire TRP-AO?</summary>
             <p>
-              My attention-oriented adaptation of Tag Recall Prompting. It
-              combines compact rule modules with symbolic cues and a
-              page/function workflow. The whitepaper covers the design, token
-              measurements, and proposed behavioral evaluation.
+              A separate prompting-style project: my attention-optimized
+              adaptation of Tag Recall Prompting. Vexa is a
+              SillyTavern/Lumiverse preset written in that style. TeleWire
+              combines compact rule modules, symbolic cues, and a page/function
+              workflow.
             </p>
             <p>
               <a href="../research/telewire/TeleWire-TRP-AO-Whitepaper.html"
@@ -206,6 +375,17 @@
               <a href="../research/telewire/trp-base-comparison/report.html"
                 >dig into the token comparison</a
               >.
+            </p>
+          </details>
+          <details>
+            <summary>Where does AetherKit fit?</summary>
+            <p>
+              AetherKit is the related SDK for character-card authors. It
+              documents ways to supply arc and track specs, declare route flags,
+              and add custom hooks, state, and dice. The
+              <a href="../aetherkit/">SDK guide</a>
+              introduces the authoring model and links to the full integration
+              requirements.
             </p>
           </details>
           <details>
@@ -220,12 +400,22 @@
       </section>
     </main>
     <footer class="site-footer wrap">
-      <a class="brand" href="../">ryah<span aria-hidden="true">✳</span></a>
+      <a class="brand" href="../"
+        >ryah<span aria-hidden="true"
+          ><svg
+            class="icon-bolt"
+            viewBox="0 0 24 24"
+            aria-hidden="true"
+            focusable="false"
+          >
+            <path d="M13 2 3 14h8l-1 8 11-13h-8l1-7Z" /></svg></span
+      ></a>
       <p>Personal projects. Perpetual tinkering.<br />© 2026 Ryan A / Ryah</p>
       <div>
         <a href="../vexa/">Vexa</a
         ><a href="../research/telewire/TeleWire-TRP-AO-Whitepaper.html"
-          >Whitepaper</a
+          >TeleWire</a
+        ><a href="../aetherkit/">AetherKit</a
         ><a href="https://github.com/Ryah/ryah.github.io">Site source ↗</a>
       </div>
     </footer>
