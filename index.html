@@ -21,144 +21,195 @@
     />
     <link rel="canonical" href="https://ryah.github.io/" />
     <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
-    <link rel="stylesheet" href="assets/site.css" />
-    <script src="assets/theme.js"></script>
+    <link rel="stylesheet" href="assets/site.css?v=neon1" />
+    <script src="assets/theme.js?v=neon1"></script>
+    <link
+      rel="preload"
+      href="assets/fonts/space-grotesk.ttf"
+      as="font"
+      type="font/ttf"
+      crossorigin
+    />
   </head>
   <body>
     <a class="skip" href="#main">Skip to content</a>
     <header class="site-header wrap">
       <a class="brand" href="./"
-        >ryah<span>Ryan A</span></a
+        >ryah<span class="brand-spark" aria-hidden="true">✳</span
+        ><span class="brand-name">Ryan A</span></a
       >
       <nav class="nav" aria-label="Main navigation">
-        <a href="#work">Projects</a><a href="#about">About</a
-        ><a href="https://github.com/Ryah">GitHub ↗</a
-        ><button
-          class="theme-toggle"
-          data-theme-toggle
-          type="button"
-          aria-label="Switch theme"
+        <a href="#work">Projects</a><a href="vexa/">Vexa</a
+        ><a href="https://github.com/Ryah"
+          >GitHub <span aria-hidden="true">↗</span></a
         >
+        <button class="theme-toggle" data-theme-toggle type="button" hidden>
           Theme
         </button>
       </nav>
     </header>
-    <main id="main" class="wrap">
-      <section class="hero" aria-labelledby="intro-heading">
-        <div>
-          <p class="kicker">Personal projects &amp; experiments</p>
-          <h1 id="intro-heading">Systems behind<br />the <em>story.</em></h1>
+    <main id="main">
+      <section class="hero wrap" aria-labelledby="intro-heading">
+        <div class="hero-copy">
+          <p class="hello">
+            Hey, I’m Ryah. <span>Welcome to my corner of the internet.</span>
+          </p>
+          <h1 id="intro-heading">
+            My little<br /><span class="handline">laboratory.</span
+            ><span class="title-spark" aria-hidden="true">✳</span>
+          </h1>
           <p class="intro">
-            I’m Ryan A, also known as Ryah. I build interactive worlds,
-            character systems, and the prompting structures that hold them
-            together.
+            I tinker with roleplay, build character systems, and see what
+            happens when a world gets a memory. Things get a little weird here.
           </p>
           <div class="actions">
             <a class="button" href="#work"
-              >Explore my work <span aria-hidden="true">↓</span></a
-            ><a class="text-link" href="#about">A little about me</a>
+              >See what I’m making <span aria-hidden="true">↓</span></a
+            ><a class="text-link" href="#about">Who’s behind this?</a>
           </div>
         </div>
         <figure class="hero-art">
-          <img
-            src="assets/vexa-portrait.webp"
-            width="900"
-            height="900"
-            alt="Vexa’s purple-haired, stitched mascot in a neon laboratory"
-            fetchpriority="high"
-          />
-          <figcaption>From the world of Vexa.</figcaption>
+          <div class="portrait-shell">
+            <img
+              src="assets/vexa-portrait.webp"
+              width="900"
+              height="900"
+              alt="Vexa’s purple-haired, stitched mascot, with glowing green and blue eyes"
+              fetchpriority="high"
+            />
+          </div>
+          <figcaption>
+            <a href="vexa/"
+              >Meet the resident troublemaker.
+              <span aria-hidden="true">↗</span></a
+            >
+          </figcaption>
+          <span class="art-spark" aria-hidden="true">✳</span>
         </figure>
       </section>
-      <section class="section" id="work" aria-labelledby="work-heading">
-        <h2 class="section-title" id="work-heading">Selected work</h2>
-        <!-- Add another project article here as the portfolio grows. -->
+      <section
+        class="work-section wrap"
+        id="work"
+        aria-labelledby="work-heading"
+      >
+        <h2 class="section-title" id="work-heading">
+          Things I’ve stitched together<span aria-hidden="true">.</span>
+        </h2>
+        <!-- Add another article.project here as the collection grows. -->
         <article class="project">
           <a class="project-image" href="vexa/" aria-label="Explore Vexa"
             ><img
               src="assets/vexa-lab.webp"
               width="1600"
               height="900"
-              alt="Vexa promotional artwork with its mascot and green wordmark in a neon laboratory"
+              alt="Vexa at a neon laboratory bench, with the green and magenta Vexa wordmark"
               loading="lazy"
-          /></a>
-          <div>
-            <p class="meta">Roleplay / Simulation / Prompt architecture</p>
+            /><span class="image-link" aria-hidden="true">↗</span></a
+          >
+          <div class="project-copy">
+            <p class="project-kind">The ongoing obsession</p>
             <h3>Vexa</h3>
             <p>
-              A roleplay preset exploring what happens when characters have
-              their own knowledge, relationships, and lives beyond the current
-              scene.
+              A roleplay preset for characters with their own memories,
+              relationships, and reasons to act. The world doesn’t stop just
+              because you leave the room.
             </p>
-            <p>
-              Built around structured rules and persistent state, with roots in
-              FrankenSIM.
+            <p class="small-copy">
+              Grown from FrankenSIM. Still very much a personal experiment.
             </p>
-            <a class="text-link" href="vexa/"
-              >Meet Vexa <span aria-hidden="true">↗</span></a
+            <a class="button button-magenta" href="vexa/"
+              >Step into Vexa <span aria-hidden="true">↗</span></a
             >
           </div>
         </article>
       </section>
-      <section class="section research" aria-labelledby="research-heading">
-        <div>
-          <h2 id="research-heading">TeleWire TRP-AO</h2>
+      <section class="research-section wrap" aria-labelledby="research-heading">
+        <div class="paper-art" aria-hidden="true">
+          <div class="paper-sheet">
+            <span class="paper-title">TeleWire<br />TRP-AO</span>
+            <div class="paper-equation">↳ rule<br />↳ recall<br />↳ state</div>
+            <span class="paper-foot">Ideas, with the working shown.</span>
+          </div>
+          <span class="paper-sticker">I wrote it down!</span>
+        </div>
+        <div class="research-copy">
+          <h2 id="research-heading">Okay, but how<br />does it work?</h2>
           <p>
-            A technical whitepaper on compact, attention-oriented prompting:
-            tagged rules, symbolic cues, and explicit state contracts developed
-            through FrankenSIM and Vexa.
+            Some of the tinkering turned into TeleWire TRP-AO: compact
+            instructions, symbolic cues, and a way to organize the rules behind
+            Vexa.
+          </p>
+          <p>
+            The whitepaper gets into the design and the tradeoffs, with token
+            comparisons you can inspect and reproduce.
           </p>
           <a
-            class="button"
+            class="text-link prominent"
             href="research/telewire/TeleWire-TRP-AO-Whitepaper.html"
             >Read the whitepaper <span aria-hidden="true">↗</span></a
           >
           <div class="research-links">
-            <a
-              class="text-link"
-              href="research/telewire/trp-base-comparison/report.html"
-              >Token comparison</a
-            ><a
-              class="text-link"
-              href="research/telewire/TeleWire-TRP-AO-Whitepaper.pdf"
-              >PDF edition</a
+            <a href="research/telewire/trp-base-comparison/report.html"
+              >Show me the numbers</a
+            ><a href="research/telewire/TeleWire-TRP-AO-Whitepaper.pdf"
+              >Grab the PDF</a
             >
           </div>
         </div>
-        <aside class="notation" aria-label="About the prompting method">
-          <p class="symbol" aria-hidden="true">
-            rule → recall<br />state → continuity
-          </p>
-          <p>
-            Compact instructions. Distinctive semantic cues. A deliberate
-            tradeoff between token cost and salience.
-          </p>
-          <p>
-            Includes reproducible token counts against compact base TRP and
-            ordinary Markdown instructions.
-          </p>
-        </aside>
       </section>
-      <section class="section about" id="about" aria-labelledby="about-heading">
-        <h2 id="about-heading">Hi, I’m Ryan.<br />You can call me Ryah.</h2>
-        <div>
+      <section
+        class="about-section wrap"
+        id="about"
+        aria-labelledby="about-heading"
+      >
+        <div class="about-copy">
+          <h2 id="about-heading">One person.<br />Too many ideas.</h2>
           <p>
-            I’m interested in the machinery behind a convincing interactive
-            world: what a character knows, what changes between turns, and how a
-            model keeps those details connected.
+            I’m Ryan A, usually Ryah. I like pulling apart the little things
+            that make an interactive world feel alive: who knows what, what a
+            character remembers, and what happens between scenes.
           </p>
           <p>
-            This is a home for my personal projects and the ideas I’m working
-            through as I build them.
+            This is where those ideas end up. A few projects, a bit of writing,
+            and plenty left to figure out.
           </p>
           <a class="text-link" href="https://github.com/Ryah"
-            >Find me on GitHub <span aria-hidden="true">↗</span></a
+            >Come poke around on GitHub <span aria-hidden="true">↗</span></a
           >
         </div>
+        <aside class="dice-toy" aria-labelledby="dice-heading">
+          <p class="toy-note">A completely necessary distraction</p>
+          <h3 id="dice-heading">Roll for inspiration.</h3>
+          <button
+            class="dice-button"
+            type="button"
+            data-roll
+            hidden
+            aria-label="Roll a twenty-sided die"
+          >
+            <span class="die-number" aria-hidden="true">20</span>
+          </button>
+          <p
+            class="dice-result"
+            data-roll-result
+            role="status"
+            aria-live="polite"
+          >
+            A tiny roll for your next big idea.
+          </p>
+          <noscript
+            ><p>
+              The dice needs JavaScript. The rest of the lab doesn’t.
+            </p></noscript
+          >
+        </aside>
       </section>
     </main>
     <footer class="site-footer wrap">
-      <span>© 2026 Ryan A / Ryah</span>
+      <a class="footer-signature" href="./"
+        >ryah<span aria-hidden="true">✳</span></a
+      >
+      <p>Personal projects. Perpetual tinkering.<br />© 2026 Ryan A / Ryah</p>
       <div>
         <a href="vexa/">Vexa</a
         ><a href="research/telewire/TeleWire-TRP-AO-Whitepaper.html"
