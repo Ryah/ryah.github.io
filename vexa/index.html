@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Vexa | A Roleplay &amp; Simulation Preset by Ryah</title>
+    <meta
+      name="description"
+      content="Vexa is Ryah’s roleplay and simulation preset, evolving from FrankenSIM with structured prompting, persistent character state, and knowledge boundaries."
+    />
+    <meta property="og:title" content="Vexa by Ryah" />
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:description"
+      content="Characters with their own knowledge, relationships, and lives beyond the scene."
+    />
+    <meta
+      property="og:image"
+      content="https://ryah.github.io/assets/vexa-banner.webp"
+    />
+    <link rel="canonical" href="https://ryah.github.io/vexa/" />
+    <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="../assets/site.css" />
+    <script src="../assets/theme.js"></script>
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+    <header class="site-header wrap">
+      <a class="brand" href="../"
+        >ryah<span>Ryan A</span></a
+      >
+      <nav class="nav" aria-label="Main navigation">
+        <a href="../#work">Projects</a><a href="./" aria-current="page">Vexa</a
+        ><a href="https://github.com/Ryah">GitHub ↗</a
+        ><button
+          class="theme-toggle"
+          data-theme-toggle
+          type="button"
+          aria-label="Switch theme"
+        >
+          Theme
+        </button>
+      </nav>
+    </header>
+    <main id="main" class="wrap">
+      <section class="vexa-hero" aria-labelledby="vexa-title">
+        <a class="back" href="../">← Back to Ryah</a>
+        <h1 id="vexa-title">Vexa.</h1>
+        <p class="vexa-intro">
+          A roleplay preset for worlds that keep moving. Characters with their
+          own knowledge, relationships, and reasons to act.
+        </p>
+        <div class="actions">
+          <a class="button" href="#overview"
+            >Explore the project <span aria-hidden="true">↓</span></a
+          ><a class="text-link" href="#get-vexa"
+            >Project &amp; release information</a
+          >
+        </div>
+        <figure class="vexa-cover">
+          <img
+            src="../assets/vexa-banner.webp"
+            alt="Vexa’s mascot at a neon-lit laboratory bench, with the Vexa roleplay simulator wordmark"
+            width="1600"
+            height="600"
+            fetchpriority="high"
+          />
+          <figcaption>
+            Vexa is a personal project by Ryah, evolving from FrankenSIM.
+          </figcaption>
+        </figure>
+      </section>
+      <section
+        class="section vexa-overview"
+        id="overview"
+        aria-labelledby="overview-heading"
+      >
+        <h2 id="overview-heading">A world beyond<br />the conversation.</h2>
+        <div>
+          <p>
+            Vexa is a prompt preset for LLM roleplay and simulation. It
+            organizes character behavior, scene progression, and persistent
+            information so a conversation can build on what came before.
+          </p>
+          <p>
+            The project brings together modular rules, a staged prompting
+            workflow, and state contracts for facts such as relationships,
+            memories, and locations. TeleWire TRP-AO is the symbolic authoring
+            approach used to organize those instructions.
+          </p>
+          <div class="features">
+            <div class="feature">
+              <h3>Character continuity</h3>
+              <p>
+                Track relationships, memories, and changing circumstances across
+                turns.
+              </p>
+            </div>
+            <div class="feature">
+              <h3>Knowledge boundaries</h3>
+              <p>
+                Separate what happens in the world from what each character can
+                plausibly know.
+              </p>
+            </div>
+            <div class="feature">
+              <h3>World progression</h3>
+              <p>
+                Give off-screen activity, character agendas, and consequences a
+                place in the simulation.
+              </p>
+            </div>
+            <div class="feature">
+              <h3>Structured prompting</h3>
+              <p>
+                Connect standing rules, turn-level procedures, and serialized
+                state through explicit references.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="section" id="get-vexa" aria-labelledby="get-heading">
+        <div class="downloads">
+          <h2 id="get-heading">Follow Vexa’s development</h2>
+          <p>
+            This page is the new home for Vexa. A current release guide,
+            installation steps, and compatibility notes will be added here as
+            the project documentation grows.
+          </p>
+          <p>
+            The public repository contains the project’s earlier FrankenSIM
+            material. Its README describes an older version.
+          </p>
+          <div class="actions">
+            <a
+              class="button"
+              href="https://github.com/Ryah/ST-Freaky-D20-Preset"
+              >Public project archive <span aria-hidden="true">↗</span></a
+            ><a
+              class="text-link"
+              href="../research/telewire/TeleWire-TRP-AO-Whitepaper.html"
+              >Read the architecture whitepaper</a
+            >
+          </div>
+          <!-- Future: link a verified current release here with its host/version requirements. -->
+        </div>
+      </section>
+      <section class="section" aria-labelledby="details-heading">
+        <h2 class="section-title" id="details-heading">A few useful details</h2>
+        <div class="faq">
+          <details>
+            <summary>How does Vexa relate to FrankenSIM?</summary>
+            <p>
+              Vexa continues the FrankenSIM project’s work on stateful roleplay
+              and world simulation. Earlier names and snapshots remain in the
+              public repository and some documentation.
+            </p>
+          </details>
+          <details>
+            <summary>What is TeleWire TRP-AO?</summary>
+            <p>
+              It is Ryah’s attention-oriented adaptation of Tag Recall
+              Prompting. It combines compact rule modules with distinctive
+              symbolic cues and a page/function workflow. The whitepaper
+              documents the design, token measurements, and proposed behavioral
+              evaluation.
+            </p>
+            <p>
+              <a href="../research/telewire/TeleWire-TRP-AO-Whitepaper.html"
+                >Read the HTML whitepaper</a
+              >
+              or
+              <a href="../research/telewire/trp-base-comparison/report.html"
+                >inspect the token comparison</a
+              >.
+            </p>
+          </details>
+          <details>
+            <summary>Where are the setup instructions?</summary>
+            <p>
+              A Vexa-specific setup guide is planned for this page. Until a
+              current release and its requirements are documented here, treat
+              the repository as historical project material.
+            </p>
+          </details>
+        </div>
+      </section>
+    </main>
+    <footer class="site-footer wrap">
+      <span>Vexa by Ryan A / Ryah</span>
+      <div>
+        <a href="../">Portfolio</a
+        ><a href="https://github.com/Ryah/ST-Freaky-D20-Preset"
+          >Project archive ↗</a
+        >
+      </div>
+    </footer>
+  </body>
+</html>
