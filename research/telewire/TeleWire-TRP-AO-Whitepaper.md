@@ -5,15 +5,15 @@
 **Attention-Optimized · FrankenSIM / Vexa · formerly FrankenWIRE**\
 **Method designer and project developer:** Ryah\
 **Whitepaper drafting, source review, and token analysis:** Cindy, an LLM agent\
-**Document:** Technical design whitepaper, version 1.4 · November 3, 2026
+**Document:** Technical design whitepaper, version 1.5 · November 4, 2026
 
 ### Abstract
 
-TeleWire TRP-AO (Attention-Optimized), previously documented as FrankenWIRE, is a symbolic prompt-authoring approach used in the FrankenSIM/Vexa interactive simulation project. It combines compact rule modules with distinctive Unicode and emoji cues, then references those rules through a staged page-and-function workflow. Its design objective is semantic density with explicit salience: preserve short instructions while spending a small token premium on recognizable markers for operations, relationships, and control flow.
+TeleWire TRP-AO (Attention-Optimized), previously documented as FrankenWIRE, proposes an attention-oriented adaptation of Tag Recall Prompting for **large, complex presets: instruction bodies of 20k+ tokens, exemplified by Vexa**, before character data, conversation history, and recurring state are added. In this setting, effective use of a rule depends on finding and applying it at the relevant point in a staged reasoning workflow. TRP-AO combines compact rule modules with distinctive Unicode and emoji cues, explicit tag recall, and a page-and-function structure intended to keep those rules accessible during generation.
 
-Base TeleWire Tag Recall Prompting (TRP) prioritizes token compactness. A reproducible comparison of 17 AO samples against reconstructed compact base-TRP counterparts measured **12.94–13.82% AO overhead** across the selected mix, and **9.72–10.17%** across its twelve rule modules. Against ordinary Markdown prose versions of sixteen instruction/setup samples, AO measured **15.12–15.69% savings**, and compact base TRP **24.40–24.42%**. Three separate expression-level examples measured **39–57% savings against their English expansions**. These counts quantify the representation tradeoff; the behavioral value of the markers is a separate evaluation question.
+The central hypothesis is that **uncommon, consistently defined, semantically meaningful cues can improve rule selection and application within a dense prompt and its chain-of-thought workflow**. Distinctive notation supplies recognizable instruction roles; staged recall reconnects the current decision to its governing rule; recurring state symbols reinforce the intended interpretation of overloaded concepts. This paper develops that mechanism, documents its implementation, and derives observable predictions for playable simulation.
 
-Ryah also uses **targeted semantic loading** in development: choosing recurring state markers to reinforce the intended interpretation of an overloaded concept. The Ludus/🎲 case documents the observed problem, intervention, and intended behavior. This paper presents that development account alongside source inspection and scripted token measurements.
+The design retains measurable compression while allocating some of it to these cues. Seventeen frozen samples measured **12.94–13.82% AO overhead** against reconstructed compact base TRP, and **9.72–10.17%** across twelve rule modules. Against ordinary Markdown instruction/setup renderings, AO measured **15.12–15.69% savings**, compared with base TRP's **24.40–24.42%**. These results price the representation choice; the proposed return is better adherence, continuity, and semantic stability in demanding long-preset use. Ryah's Ludus/🎲 development case supplies a concrete application of the theory. The paper presents an implemented, testable design hypothesis with reproducible token measurements and a protocol for quantifying its behavioral benefit.
 
 ### Authorship and verification process
 
@@ -21,9 +21,15 @@ Ryah designed the TRP-AO adaptation, developed the FrankenSIM/Vexa implementatio
 
 The verification process distinguishes **source inspection**, **scripted measurements**, **Ryah's development observations**, and **proposed behavioral tests**. Numerical results come from deterministic tokenizer runs on published paired strings, rather than an LLM's estimate of token cost. The base reconstructions and prose expansions were authored by Cindy and remain inspectable, so readers can assess the comparison choices and reproduce the counts.
 
-This division makes the drafting and checking process explicit. Its evidentiary value comes from traceable sources, disclosed comparison choices, and reproducible calculations. LLM involvement alone does not establish reduced bias or independent validation: fixture selection and interpretation still involve judgment, and the work was performed within Ryah's project workflow.
+### Evidence status
+
+This is a theory-led technical design whitepaper. Source inspection establishes the implemented architecture; deterministic tokenizer runs establish the reported representation costs; Ryah's development observations motivate the behavioral hypotheses. Related research supports the rationale, and section 9 defines matched trials for estimating AO's effect. Behavioral superiority over base TRP is a prediction to evaluate. This distinction applies throughout the paper.
 
 ## 1. Problem and design goals
+
+TRP-AO is designed for large-context presets with interdependent rules and a staged chain-of-thought (CoT) workflow. **The target workload is a preset instruction body exceeding 20k tokens, such as Vexa**, with additional context supplied by the host. This scope is Ryah's description of the intended deployment regime, not a newly measured whole-preset token count. The 20k figure identifies the practical target, rather than a sharp architectural threshold.
+
+At this scale, a rule can be present in context yet fail to govern the decision for which it was written. Multiple modules may use similar language while requiring different scopes, exceptions, or checks. A short request to “do x and y” leaves the model to recover those distinctions among thousands of other instructions. AO gives important rule roles distinctive cues and calls them back into the relevant stage. Its design question is: **how much compactness should be spent to make a large specification more reliably usable?**
 
 A stateful language-model simulation must coordinate several concerns within each response: what participants know, which actions are possible, how events progress, how characters speak, and which facts survive into the next turn. When these concerns are interleaved in a long instruction document, a small edit can obscure a condition, create a competing rule, or change an output field that another component expects.
 
@@ -137,9 +143,36 @@ no source → unaware of that fact
 
 A marker can recall a definition much longer than its surface representation. Once the notation is established, `∀` indicates application to each relevant item; `∅` represents a null result or skipped effect; `➤` signals a procedure call; `⇥` signals a page transition. An emoji can identify a relationship axis without spelling out the axis name on every state entry. The intended compression comes from reusing a stable meaning, not from a symbol creating meaning without a definition.
 
-Ryah's attention-oriented hypothesis is that uncommon, semantically loaded markers stand out from surrounding prose and help the model distinguish instruction types and recall the associated rules. Consistent marker roles and explicit recall are central to that design. Definitions, legends, and invocation context still consume tokens and belong in whole-prompt accounting.
+### Proposed mechanism: distinctive cues, binding, and recall
 
-The term *Attention-Optimized* names this design objective. Rarity alone does not establish that a model must attend to a marker or comply with its meaning. In the standard Transformer formulation, attention weights depend on query/key compatibility; there is no general rarity-priority rule [6]. Controlled comparisons can distinguish effects of marker choice from changes in surrounding instructions for a particular model.
+AO treats a large preset as a specification the model must repeatedly consult while composing a turn. The proposed benefit comes from three cooperating mechanisms:
+
+1. **Distinctive instruction roles.** A cue such as `➤` or `⇥` occupies a recognizable role within surrounding prose. Reusing a limited cue vocabulary consistently gives calls, transitions, and checks a different local pattern from narrative instructions. Here, “rare” means uncommon in the surrounding prompt language; it does not require a glyph to be one tokenizer token or assert a measured frequency in model training data.
+2. **Stable semantic binding.** A definition binds each cue to an operation or concept. Later occurrences reuse that binding, giving the model a compact association between the current instruction and the relevant rule. Choosing a symbol with a compatible learned association, such as dice for play, can reinforce the intended interpretation.
+3. **Recall at the decision point.** The page/function workflow invokes named rules when their constraints matter. In a CoT-oriented preset, these calls create explicit checkpoints for applying knowledge, state, and style rules before emitting the result. This supplies contextual relevance to the cue rather than relying on a distant instruction's continued influence.
+
+The resulting hypothesis is causal and testable: **distinctive cue → stable rule association → recall in the relevant reasoning stage → more consistent observable behavior**. Vexa combines these mechanisms; the evaluation separates their individual contributions.
+
+### Why this could work in a 20k+ token preset
+
+Long-context research gives the design a concrete problem to address. Liu et al. found position-sensitive retrieval in multi-document question answering and key-value tasks, including poorer use of information in the middle of long inputs [11]. Hsieh et al. connected positional attention bias to retrieval performance and improved context use through attention calibration [12]. These findings motivate attention to rule accessibility in a large preset. AO proposes a prompt-level intervention through distinctive bindings and timed recall; the cited calibration method modifies attention behavior directly.
+
+Xu et al.'s re-reading experiments found that revisiting question input improved reasoning across their benchmarks and could work alongside CoT prompting [13]. This supports investigating renewed exposure to relevant instructions during a staged workflow. AO's shorter tag references propose a way to reactivate a defined rule without reproducing its full wording each time.
+
+In Transformer attention, query/key compatibility governs weighting [6]. AO's mechanism is therefore a proposed improvement in contextual association: defined cues and relevant invocations may help a current decision connect to the appropriate instruction. Uncommon notation offers a way to distinguish those associations amid repetitive prose. Semantic fit, consistent use, and invocation context determine whether that distinctiveness is useful; arbitrary novelty can instead add interpretation cost.
+
+This rationale predicts the strongest practical benefit when many competing rules must be coordinated across a long preset. A short prompt with a few obvious instructions offers fewer opportunities for improved access to repay the cue vocabulary. Repeated modules and recurring state offer more opportunities to reuse definitions and amortize their setup cost.
+
+### Expected advantages and operating conditions
+
+| AO design choice | Proposed advantage in the target workload | Condition for useful application |
+|---|---|---|
+| Distinctive operation cues | Differentiate calls, transitions, and checks amid dense instructions | Small, stable vocabulary with explicit definitions |
+| Named recall during CoT stages | Bring a governing rule into the current decision | Correct references and calls at relevant stages |
+| Semantically chosen state symbols | Reinforce the intended meaning across turns | Compatible symbol associations and retained state |
+| Compact modules plus explicit scope | Retain more usable rules within the context budget | Preserve actors, conditions, exceptions, and interfaces |
+
+These advantages form the proposed return on AO's token premium. A working implementation should show them as fewer missed constraints, fewer continuity errors, and less semantic drift during play.
 
 ### Targeted semantic loading: the Ludus/🎲 development case
 
@@ -173,7 +206,7 @@ Express playfulness through the other active relationship axes
 
 Ryah describes this as repetition bias and semantic priming: reinforce the desired association while reducing repeated exposure to the overloaded label. Emoji choice therefore carries a semantic purpose as well as a compactness or salience purpose. Replacing 🎲 with a romantic symbol, an arbitrary marker, or the word “Ludus” everywhere would change that intervention even if the numeric values stayed identical. This concerns conditioning within context, not a claim of model-weight training.
 
-Ryah actively uses and tests this strategy during development. Cindy's source inspection confirms the implementation. The behavioral evidence available for this paper is Ryah's qualitative account; a quantified effect size requires matched trials and recorded outputs.
+Ryah actively uses and tests this strategy during development. Cindy's source inspection confirms the implementation. The development account motivates a specific prediction: emoji-only recurring state should retain playfulness while reducing unsupported romantic interpretation in friendship and familial scenes. Section 9 specifies the matched trials for estimating that effect.
 
 ## 5. Scope, notation, and semantic preservation
 
@@ -238,7 +271,7 @@ Cindy froze **17 source-derived AO samples** before tokenization and authored co
 | Three procedural excerpts | `cl100k_base` | 290 | 344 | +18.62% |
 | Three procedural excerpts | `o200k_base` | 283 | 333 | +17.67% |
 
-AO overhead is `100 × (AO / base − 1)`, calculated from each group's strings joined with two newlines. **The measured estimate is about 10% for these rule modules and 13–14% for this mixed selection.** The range reflects the two encodings, not a statistical confidence interval. The base texts are reconstructions, and the selection is a stratified convenience sample. Intended meaning was reviewed; behavioral equivalence was not tested. These are exact counts for the published strings and a sample-based estimate of AO cost, rather than a whole-preset overhead measurement.
+AO overhead is `100 × (AO / base − 1)`, calculated from each group's strings joined with two newlines. **The measured estimate is about 10% for these rule modules and 13–14% for this mixed selection.** The range reflects the two encodings, not a statistical confidence interval. The base texts are reconstructions, and the selection is a stratified convenience sample. Intended meaning was reviewed for the representation comparison. These are exact counts for the published strings and a sample-based estimate of AO cost, rather than a whole-preset overhead measurement.
 
 An additional control replaced Unicode markers with ASCII equivalents while retaining the AO wording. Across the twelve rule modules, AO cost only **0.22% more** under either encoding. Most of the roughly 10% AO-versus-reconstruction gap in those modules therefore comes from changes to tags, wording, and format, rather than the net cost of Unicode markers alone.
 
@@ -259,7 +292,7 @@ Cindy added ordinary prose versions of the same samples using Markdown headings,
 | Three procedures | `cl100k_base` | 346 | 290 | 344 | 16.18% | 0.58% |
 | Three procedures | `o200k_base` | 341 | 283 | 333 | 17.01% | 2.35% |
 
-**Across these sixteen instruction/setup samples, AO saves about 15–16% against concise Markdown instructions; compact base TRP saves about 24%.** Savings use `100 × (1 − compact / Markdown)`. Headings and Markdown punctuation are included. These are counts for one authored prose rendering, so the result depends on wording and does not measure how all instruction writers compose prompts. Required identifiers, examples, conditions, and output syntax are retained; no model-generation equivalence test was run.
+**Across these sixteen instruction/setup samples, AO saves about 15–16% against concise Markdown instructions; compact base TRP saves about 24%.** Savings use `100 × (1 − compact / Markdown)`. Headings and Markdown punctuation are included. These are counts for one authored prose rendering, so the result depends on wording and does not measure how all instruction writers compose prompts. Required identifiers, examples, conditions, and output syntax are retained; the behavioral comparison is specified in section 9.
 
 The serialized matrix row is not a prose instruction and is excluded from this primary comparison. The separate seventeen-sample mixed-pack diagnostic retains the exact AO state row in the prose baseline as a shared output contract; base retains its earlier short-label row. The prose axis legend retains the required emoji mappings. Full strings and mixed-pack totals are available in [10].
 
@@ -281,7 +314,7 @@ The exact English expansions were:
 2. “If the current turn count ct is divisible by three, call chekhov_fire; after the function returns, continue with the next instruction.”
 3. “If participant n does not belong to the gossip witness set K(g), add participant n to that set.”
 
-These comparisons assume the meanings of `g`, `ct`, `K(g)`, and the call/return notation are already established. They exclude definition/legend costs, prompt wrappers, macro expansion, output tokens, and provider formatting. Intended semantic correspondence was reviewed for illustration; no generation-based equivalence test was run. The full strings and results are recorded in `token-evidence.json`; `token-evidence.py` reproduces the counts [5].
+These comparisons assume the meanings of `g`, `ct`, `K(g)`, and the call/return notation are already established. They exclude definition/legend costs, prompt wrappers, macro expansion, output tokens, and provider formatting. Intended semantic correspondence was reviewed for illustration. The full strings and results are recorded in `token-evidence.json`; `token-evidence.py` reproduces the counts [5].
 
 ### Marker cost and measurement boundaries
 
@@ -298,11 +331,30 @@ Many useful markers cost one to three tokens in the reference encodings, but gly
 
 Shorter text can produce real token savings, as the expression counts show. Smaller character count by itself is not proof of fewer tokens: vocabulary, bytes, and context determine segmentation. This distinction preserves the token-efficiency claim while making its measurement reproducible.
 
-The measurements establish token cost for the disclosed strings. Ryah's Ludus account supplies qualitative behavioral evidence, and source inspection establishes how the intervention is encoded. Controlled measurements of adherence, state accuracy, quality, and latency remain the next evaluation step.
+### Interpreting the token premium
+
+The measurements show that AO retains savings over the prose baseline while spending more tokens than reconstructed compact base TRP. That is the intended engineering tradeoff. A minimum-token representation and a representation optimized for reliable use of many interacting rules can favor different choices.
+
+For a 20k+ token preset, the relevant question is whether the extra structure improves successful rule application enough to justify its cost. The rule-module ASCII control is especially useful: Unicode replacement changed cost by only **0.22%** in that selection, so removing distinctive glyphs alone would recover little of the measured overhead. Whole-preset and live-history costs still require assembled-context measurement; sample percentages should not be multiplied into a claimed Vexa total.
+
+Section 9 evaluates the expected return through constraint adherence, continuity, and semantic stability alongside assembled token cost. This gives both base TRP and AO a meaningful comparison: compactness is measured directly, and AO's additional objective is evaluated through playable outcomes.
 
 ## 9. Evaluation plan
 
 A useful evaluation should compare observable outcomes under a fixed model/version, host configuration, sampler settings, character data, and starting state. First resolve known contradictory instructions so that a failure has an unambiguous expected result.
+
+### Predictions for the intended deployment regime
+
+Evaluate a primary **20k+ token instruction-body condition**, plus a shorter condition carrying the same target rules with fewer competing modules. Record preset-only and fully assembled context sizes separately. Vary rule position, number of simultaneously applicable constraints, and retained state history. Keep distractor content equivalent across representations; run both semantically matched and token-budget-matched comparisons so compression and context displacement remain distinguishable.
+
+| Prediction | Observable support | Result that would weaken the explanation |
+|---|---|---|
+| AO's benefit grows with rule competition | Larger adherence gain in the long, multi-rule condition than the short condition | No gain in the intended long-preset setting |
+| Distinctive binding contributes beyond routing | AO improves scores over ASCII/word cues with the same route and definitions | Marker substitutions perform equally or better |
+| Stage-local recall contributes | Removing recall reduces relevant constraint compliance | Recall removal leaves outcomes unchanged |
+| Semantic fit matters for recurring state | 🎲 preserves playfulness with fewer unsupported romantic cues than repeated Ludus labels or arbitrary symbols | Symbol choice has no effect or increases drift |
+
+These predictions make the theory playable and falsifiable: they name visible behavior that should improve and identify which part of the design earns that improvement. A positive result for routing alone would support that component while narrowing the claim about rare markers.
 
 Compare expanded prose, compact base TRP, and TRP-AO under equivalent task and rule semantics. Add ablations that replace AO symbols with ASCII/word equivalents and remove explicit recall while keeping the rule content. That separates compression from marker selection and route/recall effects. Treat changes in meaning as a confound rather than a compression gain.
 
@@ -325,11 +377,11 @@ The token comparisons in section 8 are complete and reproducible. The controlled
 
 ## 10. Engineering contribution
 
-The work demonstrates an applied prompt-design tradeoff: retain compact symbolic instructions while allocating additional tokens to distinctive semantic cues and explicit procedural structure. It combines tagged rule recall with Vexa's page/function workflow and persistent simulation contracts, while preserving scope and host interfaces.
+The contribution is an implemented attention-oriented prompt design for **large, complex presets with staged reasoning and persistent simulation state**. Ryah's TRP-AO adaptation brings together compact instructions, distinctive semantic cues, explicit rule recall, and recurring state representations to address a practical failure mode: rules that remain in context but are inconsistently applied during play.
 
-Relevant engineering work includes prompt architecture, context organization, interface maintenance, state modeling, and test design. The paper makes no claim to invent XML tagging, symbolic notation, state serialization, or modular procedures. Its contribution lies in their project-specific composition and the accompanying implementation documentation.
+The proposed explanation is that a defined cue vocabulary makes rule roles easier to distinguish, while stage-local recall reconnects decisions to their governing constraints. Targeted semantic loading extends that approach into persistent state, where symbol selection can reinforce intended interpretations over successive turns. The Ludus/🎲 intervention demonstrates how the design is applied to a concrete semantic-drift problem.
 
-Targeted semantic loading extends that contribution to representation choices inside persistent state: select a symbol for the association it should reinforce, then preserve its binding across repeated context. The Ludus example documents Ryah's development process and motivates a specific, testable framing comparison.
+The token measurements establish that this design can retain compression relative to ordinary prose while allocating a premium over compact base TRP. The behavioral proposition is that this premium can buy more reliable use of a demanding specification. The scope, mechanism, development case, and evaluation protocol together provide a technical basis for testing and refining that proposition in Vexa-scale play.
 
 ## References and reproducibility
 
@@ -354,3 +406,9 @@ Targeted semantic loading extends that contribution to representation choices in
 **[10] Reconstructed compact-base comparison.** Cindy, November 3, 2026. [Report](trp-base-comparison/report.md), [frozen fixtures](trp-base-comparison/fixtures.json), [results](trp-base-comparison/results.json), and [counting script](trp-base-comparison/compare.py). Seventeen primary pairs frozen before counting, with separate ASCII-marker and state-template diagnostics; `tiktoken` 0.14.0, `cl100k_base` and `o200k_base`. Fixture SHA-256: `a78b7e6ba11f76b616ab56c96e2ef4e48970b1b253e65b8fd2af7acf210bc700`. The base side is Cindy's reconstruction, not a historical base-TRP corpus. Additional [Markdown prose fixtures](trp-base-comparison/prose-fixtures.json) provide the ordinary-instruction baseline; SHA-256: `7561444c00cec52af426c46e81c454068e1fe00292a0ef0e9946cf82993d806d`. They were authored and frozen separately after the original comparison.
 
 Hashes identify the inspected sources without requiring disclosure of the private preset. This paper is a standalone design account; reproducing runtime results would require the implementation, compatible host configuration, and an executed evaluation protocol.
+
+**[11] Long-context retrieval.** Liu et al., [*Lost in the Middle: How Language Models Use Long Contexts*](https://arxiv.org/abs/2307.03172), TACL (2023). Position-sensitive performance in multi-document question answering and key-value retrieval motivates testing rule location in large presets.
+
+**[12] Positional attention and context use.** Hsieh et al., [*Found in the Middle: Calibrating Positional Attention Bias Improves Long Context Utilization*](https://arxiv.org/abs/2406.16008), Findings of ACL (2024). Links positional attention bias to context use and evaluates an attention-calibration intervention; supplies mechanism background for the proposed prompt-level approach.
+
+**[13] Re-reading and reasoning.** Xu et al., [*Re-Reading Improves Reasoning in Large Language Models*](https://arxiv.org/abs/2309.06275), EMNLP (2024). Evaluates repeated question input and compatibility with thought-eliciting prompts. Motivates investigating stage-local rule recall; AO's symbolic references are a distinct proposed application.
