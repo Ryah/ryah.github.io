@@ -5,15 +5,15 @@
 **Attention-Optimized · FrankenSIM / Vexa · formerly FrankenWIRE**\
 **Method designer and project developer:** Ryah\
 **Whitepaper drafting, source review, and token analysis:** Cindy, an LLM agent\
-**Document:** Technical design whitepaper, version 1.6 · November 4, 2026
+**Document:** Technical design whitepaper, version 1.7 · November 4, 2026
 
 ### Abstract
 
-TeleWire TRP-AO (Attention-Optimized), previously documented as FrankenWIRE, proposes an attention-oriented adaptation of Tag Recall Prompting for **large, complex presets: instruction bodies of 20k+ tokens, exemplified by Vexa**, before character data, conversation history, and recurring state are added. In this setting, effective use of a rule depends on finding and applying it at the relevant point in a staged reasoning workflow. TRP-AO combines compact rule modules with distinctive Unicode and emoji cues, explicit tag recall, and a page-and-function structure intended to keep those rules accessible during generation.
+TeleWire TRP-AO (Attention-Optimized), previously documented as FrankenWIRE, is a traversal syntax for dense, stateful LLM prompts. Designed by Ryah for Vexa-scale instruction bodies of 20k+ tokens and narrative RP contexts of 100k+ tokens, it combines compact rule modules with explicit page transitions, function calls and returns, loops, null results, and persistent state contracts.
 
-The central hypothesis is that **defined, semantically compatible markers make the intended staged reasoning workflow the model’s “path of least resistance” through a dense specification**. AO aims to make the author-selected rule easy to locate and apply at the appropriate stage, sustaining consistency in long-form narrative RP as accumulated context passes 100k tokens and instruction adherence becomes harder to maintain. The 20k+ instruction body and 100k+ assembled context describe different parts of the target workload, not measured failure thresholds. Distinctive notation supplies recognizable instruction roles; staged recall reconnects the current decision to its governing rule; recurring state symbols reinforce the intended interpretation of overloaded concepts. This paper develops that mechanism, documents its implementation, and derives observable predictions for playable simulation.
+The central **path-of-least-resistance hypothesis** is that making the intended route explicit and legible makes it easier for a model to apply the appropriate rules in sequence as competing context accumulates. AO proposes three cooperating mechanisms: **route specification, legibility, and local re-entry**. Unicode markers distinguish operation roles from surrounding prose; named calls bring the relevant rule body back into the current task. Targeted semantic loading, illustrated by Ludus/🎲, extends the design to the interpretation of recurring state. The primary outcome is consistent rule adherence across turns and within long-form responses.
 
-The design retains measurable compression while allocating some of it to these cues. Seventeen frozen samples measured **12.94–13.82% AO overhead** against reconstructed compact base TRP, and **9.72–10.17%** across twelve rule modules. Against ordinary Markdown instruction/setup renderings, AO measured **15.12–15.69% savings**, compared with base TRP's **24.40–24.42%**. These results price the representation choice; the proposed return is better adherence, continuity, and semantic stability in demanding long-preset use. Ryah’s Ludus/🎲 development case supplies a concrete application of the theory. Ryah also reports roughly 60% consistency with ASCII versus 95% with AO in same-model, same-20k-prompt comparisons of 400 messages per condition, alongside community experience in a Discord of 500+ members [14]. The paper presents an implemented, testable design hypothesis with reproducible token measurements and a protocol for quantifying its behavioral benefit.
+Ryah reports approximately **60% consistency with ASCII versus 95% with AO**, using the same approximately 20k-token prompt and model for 400 messages per condition, alongside experience in a Discord community of 500+ members [14]. These development observations motivate a matched 30k/60k/100k/150k context-size ladder. Frozen token fixtures separately establish **12.94–13.82% AO overhead** against reconstructed compact base TRP and **15.12–15.69% savings** against concise Markdown instruction/setup renderings. An ASCII-marker cost control differs by only **0.22%** across twelve rule modules; behavioral legibility is a separate experimental question.
 
 ### Authorship and verification process
 
@@ -29,7 +29,7 @@ This is a theory-led technical design whitepaper. Source inspection establishes 
 
 TRP-AO is designed for large-context presets with interdependent rules and a staged chain-of-thought (CoT) workflow. **The target workload is a preset instruction body exceeding 20k tokens, such as Vexa**, with additional context supplied by the host. This scope is Ryah's description of the intended deployment regime, not a newly measured whole-preset token count. The 20k figure identifies the practical target, rather than a sharp architectural threshold.
 
-At this scale, a rule can be present in context yet fail to govern the decision for which it was written. Multiple modules may use similar language while requiring different scopes, exceptions, or checks. A short request to “do x and y” leaves the model to recover those distinctions among thousands of other instructions. AO gives important rule roles distinctive cues and calls them back into the relevant stage. Its design question is: **how much compactness should be spent to make a large specification more reliably usable?**
+At this scale, a rule can be present in context yet fail to govern the decision for which it was written. The central design question is whether the model follows the intended route through the specification on this turn. Multiple modules may use similar language while requiring different scopes, exceptions, or checks. A short request to “do x and y” leaves the model to recover those distinctions among thousands of other instructions. AO gives important rule roles distinctive cues and calls them back into the relevant stage. Its design question is: **how much compactness should be spent to make a large specification more reliably usable?**
 
 A stateful language-model simulation must coordinate several concerns within each response: what participants know, which actions are possible, how events progress, how characters speak, and which facts survive into the next turn. When these concerns are interleaved in a long instruction document, a small edit can obscure a condition, create a competing rule, or change an output field that another component expects.
 
@@ -91,6 +91,12 @@ Rules + character data + prior state + user input + host values
 
 The diagram shows the prompt and host data flow. Page routing is interpreted by the model; the host handles context assembly and rendering.
 
+### The preset as a recurring specification
+
+The inspected configuration includes an enabled **Chat History** block with marker value `chat_history`, followed in the block list by the Antithesis processing instructions [1]. This is a host insertion point, not a literal `<chat_history>` wrapper found in the prompt text. The host assembles the preset, character data, retained history, and state into each generation request; actual message boundaries, ordering, macro expansion, and truncation depend on that host.
+
+Narrative RP therefore repeatedly presents a standing specification alongside an expanding record of prior turns. The operational question is **which route through that specification governs the next response?** Retrieval of relevant history remains necessary, but finding a fact alone does not establish that the model applied the required knowledge, relationship, style, and serialization checks. AO organizes that application into a requested traversal. Here, “re-read” describes renewed availability and requested consultation on each turn; it does not imply that the model reads sequentially like a human or that a provider cannot cache input.
+
 ### Declarative modules
 
 The inspected preset uses `<sys>` for general instructions, `<knowledge_sanity>` and `<epistemic_contract>` for information boundaries, `<npc_voice>` for speech, `<prose>` for narration style, and `<format>` for output targets. Other modules define world events, relationships, and spatial state.
@@ -117,7 +123,24 @@ boot → mechanics → router → solo OR ensemble → tail → aux → output
 
 The router distinguishes the scene paths by spotlight count: at most one participant selects `solo`; two or more selects `ensemble`. Functions supply reusable procedures within this route. Their notation borrows familiar concepts such as calls, parameters, loops, and returns, while remaining instructions interpreted by the model.
 
-## 4. Tag recall and attention-oriented markers
+### Source evidence for the traversal design
+
+The boot protocol explicitly calls its design a “choose your own adventure book,” defines `➤` as a footnote call with `⇤` returning to the next line, and describes other references as “dormant unless invoked” [1, 15]. The implementation gives the theory concrete operations:
+
+| Traversal role | Evidence in the inspected snapshot | Intended effect |
+|---|---|---|
+| Transitions and dispatch | `⇥ <page:...>` links boot, mechanics, router, solo/ensemble, tail, aux, and output | Specify the next stage and conditional branch |
+| Calls and returns | `➤ <fn:...>` and `⇤` | Consult a named body and resume the calling procedure |
+| Iteration | `↺ per NPC`, `↺ per target`, and `∀` operations | Make the scope and repetition of a check explicit |
+| Null results | `∅` in skipped effects, unknown fields, and inactive slots | Distinguish an explicit no-result from an omitted operation |
+| Local checks | Tail calls `violation_loop` and `stateLint` | Revisit prior-response violations and header/state obligations before output |
+| Output planning | Tail calls `anchors`, requesting OPEN/CRUX/CLOSE commitments | Constrain the intended shape of the response |
+| Serialization | Internal States specifies a 16-section order and a terminal-envelope final check | Give persistent output a required structure and completion condition |
+| Route enforcement | Boot says “Follow. Your. Pages.”; system variables include a mandatory-pages directive | Reinforce following the processing route |
+
+These are source evidence for an authored traversal protocol. They establish what the preset requests; behavior is measured separately. The known anchor-versus-no-drafting tension and unresolved reference names remain maintenance findings, rather than evidence that every route is well formed. The protocol resembles a runtime encoded in text, with markers as its syntax; execution is interpreted by the model rather than enforced by a conventional runtime.
+
+## 4. Traversal theory and the path-of-least-resistance hypothesis
 
 TRP connects a named rule module to a decision or check later in the prompt. In this design, *recall* means referring the model back to an available tagged specification. It does not describe vector retrieval, external search, or a separate memory database.
 
@@ -143,38 +166,34 @@ no source → unaware of that fact
 
 A marker can recall a definition much longer than its surface representation. Once the notation is established, `∀` indicates application to each relevant item; `∅` represents a null result or skipped effect; `➤` signals a procedure call; `⇥` signals a page transition. An emoji can identify a relationship axis without spelling out the axis name on every state entry. The intended compression comes from reusing a stable meaning, not from a symbol creating meaning without a definition.
 
-### Proposed mechanism: the path of least resistance
+### Named hypothesis: the path of least resistance
 
-AO treats a large preset as a specification the model must repeatedly consult while composing a turn. Ryah’s overarching theory is that, among competing instructions, a model may favor the rule most readily activated by the current context: for example, a recent rule, a frequently repeated rule, or one with similar syntax. AO changes this proposed “resistance landscape” by giving the intended sequence recognizable markers, explicit bindings, and calls at the point of use. Following the authored workflow should then become easier than falling back on a competing association.
+**In a dense preset, an explicit, legible traversal route makes the intended sequence of rule applications easier to follow than competing associations.** Without a sufficiently clear route, recent, frequently repeated, or syntactically similar instructions may dominate the next decision. AO proposes that distinct operation markers and named destinations make the author-selected workflow the lower-friction option. The predicted result is more consistent adherence as context and rule competition grow.
 
-“Resistance” is an operational metaphor for ease of selecting and applying a rule, not a measured energy, attention weight, or literal shortest-path algorithm. The author specifies where to look and when through the prompt’s CoT/page/function route; the mechanism is assessed through resulting behavior. A requested reasoning route does not establish access to a model’s private reasoning.
+“Path of least resistance” names a behavioral hypothesis about rule selection and sequencing. Resistance is a metaphor for ease of applying the specification, not a measured energy or a literal shortest-path algorithm. The theory has three parts:
 
-The notation is intended to draw on associations the model already knows—direction, transition, quantification, return, play—so a compact cue can communicate an operation more directly than surrounding prose. Its usefulness depends on the model and the definition. ASCII and words also carry learned associations; the prediction is that AO’s selected notation provides a more reliable route under the target workload, rather than that every Unicode glyph inherently attracts more attention.
+1. **Route specification.** `⇥` transitions, `➤` calls, `⇤` returns, loops, and null results specify where processing should go, which bodies it should consult, and when it should resume or skip. This turns a collection of standing rules into a requested sequence of decisions.
+2. **Legibility.** Markers that are uncommon in the surrounding prose distinguish calls, transitions, iteration, and explicit no-results. Their definitions and compatible learned associations give them stable roles. ASCII forms such as `->` or `>` can share roles with comparison, quotation, or informal direction; dedicated AO markers are intended to reduce that ambiguity in this preset. Whether a particular model uses them more reliably is testable. Well-defined ASCII syntax can also be legible.
+3. **Local re-entry.** A named call directs the current decision back to a relevant rule body, then returns processing to the caller. “Dormant unless invoked” is the preset’s scope convention: the body remains in context, and static source cannot establish that it consumes no model working memory. The proposed benefit is less reliance on carrying an undifferentiated set of rules through every stage.
 
-The proposed benefit comes from three cooperating mechanisms:
+The causal proposition is **explicit route + legible operation roles + local re-entry → more reliable rule application → sustained observable adherence**. A generic “attention spike” from a rare glyph is unnecessary to this explanation. Rarity in surrounding prose helps distinguish syntax; it is not itself the success metric or a claim about training frequency.
 
-1. **Distinctive instruction roles.** A cue such as `➤` or `⇥` occupies a recognizable role within surrounding prose. Reusing a limited cue vocabulary consistently gives calls, transitions, and checks a different local pattern from narrative instructions. Here, “rare” means uncommon in the surrounding prompt language; it does not require a glyph to be one tokenizer token or assert a measured frequency in model training data.
-2. **Stable semantic binding.** A definition binds each cue to an operation or concept. Later occurrences reuse that binding, giving the model a compact association between the current instruction and the relevant rule. Choosing a symbol with a compatible learned association, such as dice for play, can reinforce the intended interpretation.
-3. **Recall at the decision point.** The page/function workflow invokes named rules when their constraints matter. In a CoT-oriented preset, these calls create explicit checkpoints for applying knowledge, state, and style rules before emitting the result. This supplies contextual relevance to the cue rather than relying on a distant instruction's continued influence.
+### Long context and the middle-position challenge
 
-The resulting hypothesis is causal and testable: **distinctive cue → stable rule association → recall in the relevant reasoning stage → more consistent observable behavior**. Vexa combines these mechanisms; the evaluation separates their individual contributions.
+The relevant workload has two scales: a **20k+ instruction body** and an assembled RP context that may grow beyond **100k tokens**. AO targets consistency both across turns and from the beginning to the end of a long response. The prediction is a larger AO-versus-ASCII adherence advantage as history grows; around 30k the gap may be small, while at 100k+ it should widen under comparable conditions. These are test points, not universal degradation thresholds.
 
-### Why this could hold in a 20k+ preset and 100k+ context
+Liu et al. found poorer use of information placed in the middle of long inputs in retrieval tasks [11]. Hsieh et al. linked context-use failures to a U-shaped positional attention bias and tested an attention-calibration intervention [12]. These studies supply a problem to address; they do not directly evaluate AO’s traversal syntax.
 
-Long-context research gives the design a concrete problem to address. Liu et al. found position-sensitive retrieval in multi-document question answering and key-value tasks, including poorer use of information in the middle of long inputs [11]. Hsieh et al. connected positional attention bias to retrieval performance and improved context use through attention calibration [12]. These findings motivate attention to rule accessibility in a large preset. AO proposes a prompt-level intervention through distinctive bindings and timed recall; the cited calibration method modifies attention behavior directly.
+AO does not require equal use of every section at every stage. It requests transitions to the appropriate section when its operation is needed. This yields a specific middle-position prediction: a called rule body placed in the middle should be applied more reliably with the AO route than with matched ASCII notation or removed calls. A transition is itself a prompt instruction and can be missed; it does not guarantee access or bypass positional bias. Varying body position and call presence tests whether local re-entry actually helps.
 
-Xu et al.'s re-reading experiments found that revisiting question input improved reasoning across their benchmarks and could work alongside CoT prompting [13]. This supports investigating renewed exposure to relevant instructions during a staged workflow. AO's shorter tag references propose a way to reactivate a defined rule without reproducing its full wording each time.
-
-In Transformer attention, query/key compatibility governs weighting [6]. AO's mechanism is therefore a proposed improvement in contextual association: defined cues and relevant invocations may help a current decision connect to the appropriate instruction. Uncommon notation offers a way to distinguish those associations amid repetitive prose. Semantic fit, consistent use, and invocation context determine whether that distinctiveness is useful; arbitrary novelty can instead add interpretation cost.
-
-This rationale predicts the strongest practical benefit when many competing rules must be coordinated across a long preset. A short prompt with a few obvious instructions offers fewer opportunities for improved access to repay the cue vocabulary. Repeated modules and recurring state offer more opportunities to reuse definitions and amortize their setup cost.
+Xu et al.’s re-reading results motivate investigating renewed consultation during a reasoning task [13]. AO applies that idea through symbolic references rather than verbatim input repetition. Transformer query/key compatibility provides general attention background [6]; the paper’s concrete contribution is a prompt-level hypothesis whose observable consequences can be tested without claiming to inspect private reasoning.
 
 ### Expected advantages and operating conditions
 
 | AO design choice | Proposed advantage in the target workload | Condition for useful application |
 |---|---|---|
 | Distinctive operation cues | Differentiate calls, transitions, and checks amid dense instructions | Small, stable vocabulary with explicit definitions |
-| Named recall during CoT stages | Bring a governing rule into the current decision | Correct references and calls at relevant stages |
+| Local re-entry during specified stages | Bring a governing rule into the current decision | Correct references and calls at relevant stages |
 | Semantically chosen state symbols | Reinforce the intended meaning across turns | Compatible symbol associations and retained state |
 | Compact modules plus explicit scope | Retain more usable rules within the context budget | Preserve actors, conditions, exceptions, and interfaces |
 
@@ -285,6 +304,8 @@ AO overhead is `100 × (AO / base − 1)`, calculated from each group's strings 
 
 An additional control replaced Unicode markers with ASCII equivalents while retaining the AO wording. Across the twelve rule modules, AO cost only **0.22% more** under either encoding. Most of the roughly 10% AO-versus-reconstruction gap in those modules therefore comes from changes to tags, wording, and format, rather than the net cost of Unicode markers alone.
 
+**The ASCII control measures token cost, not legibility.** Its 0.22% difference is specific to twelve rule modules and the tested mapping; it is not a whole-preset result or a behavioral trial. It shows that the glyph substitutions contribute little net token cost in this selection. It says nothing about whether `->` and `⇥`, or `>` and `➤`, are equally easy for a model to interpret in their surrounding text. That is the matched behavioral comparison in section 9. The compression measurements and the traversal-legibility claim therefore have separate evidence and denominators.
+
 The isolated matrix row adds **35–39 tokens** over short axis labels, or **66–74%** on that small row. In a separate denominator check, replacing only the legend and row labels inside the otherwise unchanged full state template gives **1.66–1.89%** overhead. Neither percentage measures a live conversation: actual state cost depends on emitted records and retained history. Short labels also change the targeted semantic-loading intervention.
 
 The [comparison report](trp-base-comparison/report.md), [all paired strings](trp-base-comparison/pairs.md), and [recorded results](trp-base-comparison/results.json) expose the reconstruction choices and diagnostics. Run `python docs/frankenwire/trp-base-comparison/compare.py` from the repository root to reproduce them.
@@ -349,58 +370,77 @@ For a 20k+ token preset, the relevant question is whether the extra structure im
 
 Section 9 evaluates the expected return through constraint adherence, continuity, and semantic stability alongside assembled token cost. This gives both base TRP and AO a meaningful comparison: compactness is measured directly, and AO's additional objective is evaluated through playable outcomes.
 
-### Reported long-run and community experience
+### Motivating development comparison and community experience
 
-On November 4, 2026, Ryah reported personal ASCII-versus-AO testing using the same approximately 20k-token prompt and the same model, with 400 messages in each condition: approximately **60% consistency for ASCII** and **95% for Unicode/AO**, a reported difference of about **35 percentage points** [14]. Ryah described ASCII failures as random and unpredictable, and AO failures as more predictable. These are approximate developer-reported consistency figures; this revision did not inspect the conversation logs, scoring rubric, exact representation changes, or generation settings. They should not be converted into exact pass/fail counts or pooled trial statistics.
+On November 4, 2026, Ryah reported personal ASCII-versus-AO testing using the same approximately 20k-token prompt and the same model, with 400 messages in each condition: approximately **60% consistency for ASCII** and **95% for Unicode/AO**, a reported difference of about **35 percentage points** [14]. Ryah described ASCII failures as random and unpredictable, and AO failures as more predictable. This is the motivating development A/B observation—an informal natural experiment in the method’s development, not a randomized trial. The available account establishes the reported shared prompt/model and run lengths; it does not independently establish an exact glyph-only swap, identical provider settings, randomization, or a fixed scoring rubric. Logs were not reviewed. The approximate rates should not be converted into exact pass/fail counts, and messages within a conversation are correlated rather than independent trials.
 
 Ryah also reports consistent Vexa use personally and within a Discord community of **500+ members**, across models Ryah describes as state of the art [14]. Community size describes the deployment setting, not 500 independently scored participants or controlled replications. This experience is practical behavioral support motivating the theory and its evaluation. It does not by itself isolate which AO component caused the gain or establish the proposed internal attention mechanism.
 
-Ryah suspects the remaining predictable AO failures may reflect provider variability. That explanation remains open alongside model, prompt, sampling, context-handling, and scoring effects. The protocol below should retain failure categories and run metadata to investigate those alternatives. The reported 400-message comparison does not specify per-turn token lengths or establish the point at which each run crossed 100k tokens.
+The development comparison leaves author scoring, run order, divergent histories, sampling, backend changes, and unknown provider quantization as possible influences. Ryah’s suggestion that residual failures reflect provider variability remains a candidate explanation. A new evaluation should record these conditions and operationalize consistency before scoring. The available 400-message account does not supply per-turn context lengths, so it cannot locate the onset of an advantage at 100k tokens.
 
 ## 9. Evaluation plan
 
-A useful evaluation should compare observable outcomes under a fixed model/version, host configuration, sampler settings, character data, and starting state. First resolve known contradictory instructions so that a failure has an unambiguous expected result.
+### Primary outcome: adherence consistency
 
-### Predictions for the intended deployment regime
+Here, **consistency means repeatable adherence to applicable rules and output contracts**. A response may consistently follow a flawed instruction, or contain attractive prose while missing required checks. Score adherence, factual/state correctness against fixtures, and prose quality separately. A claimed route-following explanation is not an execution trace. The primary route evidence is the expected observable consequence of each applicable branch or call.
 
-Evaluate a primary **20k+ token instruction-body condition**, plus a shorter condition carrying the same target rules with fewer competing modules. Include accumulated-history conditions below, near, and beyond 100k tokens, recording host truncation and summarization. Score long-form responses by early, middle, and late portions and score successive turns, so degradation and failure clustering can be compared. Record preset-only and fully assembled context sizes separately. Vary rule position, number of simultaneously applicable constraints, and retained state history. Keep distractor content equivalent across representations; run both semantically matched and token-budget-matched comparisons so compression and context displacement remain distinguishable.
+Resolve contradictory rules in the evaluation fixture first, freeze the expected branch and state changes, and publish that fixture’s differences from the source snapshot. Use the same model/version, provider, host, sampler settings, character data, rule set, starting state, and user inputs across conditions. Record unavailable backend details as unknown.
 
-| Prediction | Observable support | Result that would weaken the explanation |
+### Main experiment: the context-size ladder
+
+Compare the full AO notation with a **one-to-one ASCII-marker substitution** at approximately **30k, 60k, 100k, and 150k assembled input tokens**, within the tested model’s supported context limit. Keep the same rules, names, wording, route, and scene checkpoints; freeze the substitution mapping. Change history length using paired, coherent RP history prefixes, not by dropping rules or moving the tested constraint. Count each assembled request with the target tokenizer where available and report actual sizes, output budgets, host truncation, and summarization.
+
+| Rung | Purpose | Primary comparison |
 |---|---|---|
-| AO sustains consistency as history grows | Flatter decline in applicable-rule adherence beyond 100k tokens, including late portions of long responses | AO degrades equally or faster under matched context conditions |
-| AO's benefit grows with rule competition | Larger adherence gain in the long, multi-rule condition than the short condition | No gain in the intended long-preset setting |
-| Distinctive binding contributes beyond routing | AO improves scores over ASCII/word cues with the same route and definitions | Marker substitutions perform equally or better |
-| Stage-local recall contributes | Removing recall reduces relevant constraint compliance | Recall removal leaves outcomes unchanged |
-| Semantic fit matters for recurring state | 🎲 preserves playfulness with fewer unsupported romantic cues than repeated Ludus labels or arbitrary symbols | 🎲 gives no improvement over matched controls, increases unsupported romantic interpretation, or weakens intended playfulness or context-appropriate expression |
+| 30k | Lower-context baseline for a 20k+ instruction body | Establish whether either notation already changes adherence |
+| 60k | Intermediate history load | Estimate the emerging AO-minus-ASCII gap |
+| 100k | Intended long-context stress setting | Test whether AO better preserves applicable checks |
+| 150k | Further stress where supported | Test whether the gap persists, widens, or collapses |
 
-These predictions make the theory playable and falsifiable: they name visible behavior that should improve and identify which part of the design earns that improvement. A positive result for routing alone would support that component while narrowing the claim about rare markers.
+A feasible **pilot** is four paired scene/history fixtures per rung: **4 rungs × 4 fixtures × 2 notations = 32 generations** for one model/configuration. Randomize or counterbalance condition order. This is a screening design, not a power calculation; report fixture-level results and uncertainty, then add independent fixtures or repeats where needed. Fixed-history checkpoints isolate the notation comparison. Separate rolling continuations test sustained use, but their histories diverge after generation and need conversation-level analysis.
 
-Compare expanded prose, compact base TRP, and TRP-AO under equivalent task and rule semantics. Add ablations that replace AO symbols with ASCII/word equivalents and remove explicit recall while keeping the rule content. That separates compression from marker selection and route/recall effects. Hold the intended rule definitions constant across conditions. The deliberate reframe from a romance-heavy association to matrix-defined playfulness is the semantic outcome being tested; differences in the supplied definitions would be a confound.
+Define the primary contrast before running: **AO adherence minus ASCII adherence at each rung**, and the change in that gap from 30k to 100k/150k. An advantage that widens with context supports the proposed context-dependent traversal benefit. An advantage already present and constant at every rung supports a notation benefit without the predicted context interaction. A gap that vanishes or reverses weakens that claim for the tested setup. Ceiling or floor scores warrant more discriminating fixtures. No single ladder proves a unique internal mechanism; call-removal and routing ablations distinguish its components.
 
-| Question                                                     | Proposed measurement                                                                                                                                                                          |
-| ------------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Are knowledge boundaries respected?                          | Unsupported knowledge events in predefined scenes                                                                                                                                             |
-| Are requested constraints followed?                          | Passed applicable constraints divided by all applicable constraints                                                                                                                           |
-| Do AO markers improve observable adherence?                  | Same-task compliance and state scores with marker/recall ablations; rarity alone is not the outcome measure                                                                                   |
-| Does routing affect observable output?                       | Expected route-dependent behavior across isolated, multi-participant, and mode-switch cases                                                                                                   |
-| Does state remain consistent?                                | Valid retained/updated fields divided by fields checked against the fixture                                                                                                                   |
-| Does targeted semantic loading preserve Ludus as a modifier? | Unwarranted flirting in friendship/familial scenes at fixed relationship values, alongside retention of intended playfulness and appropriate romantic expression when Eros/context support it |
-| Is there an efficiency tradeoff?                             | Assembled-input tokens, output tokens, latency, and estimated cost under the same configuration                                                                                               |
-| Is the specification easier to maintain?                     | Time and errors for equivalent scoped edits, including reference repair                                                                                                                       |
+### Observable event scoring
 
-Use repeated trials and publish trial counts and variation. For subjective quality, use blinded scoring criteria and keep it separate from mechanical correctness. A model-written explanation of following the route is not an execution trace; assess visible outputs and state, with host instrumentation where available.
+Specify expected events and applicability in a machine-readable fixture before generation. A scorer can check structure and deterministic deltas directly; blinded human review handles semantic judgments. These definitions are proposed for the new experiment and do not retroactively redefine Ryah’s reported 60%/95% rates.
 
-For the Ludus case, hold the numeric matrix, persona, relationship, scene, and model configuration fixed while comparing repeated word labels, word-plus-emoji labels, and emoji-only state after the same definition. Add a token-budget-matched arbitrary-symbol control where feasible. Assess whether outcomes depend on the play-associated symbol, removal of the repeated word, or their combination; do not treat ordinary sibling/friend playfulness as evidence of flirting.
+| Event family | Example check | Measurement boundary |
+|---|---|---|
+| Header and serialization | Header present; all 16 required state sections in order; one complete terminal envelope | Structural check against the frozen template, including explicit empty values |
+| Conditional dispatch | A predefined solo/ensemble or message-trigger case produces its expected scoped effects | Output consequences are evidence of the branch, not direct observation of hidden execution |
+| Calls and local checks | A fixture with a missing prior header restores it; a dropped dormant NPC is restored to state | Check the required repair, rather than a claim that `stateLint` ran |
+| Loop coverage | Every eligible NPC/target receives the required record or deterministic update; ineligible targets do not | Denominator comes from the fixture’s eligible set |
+| Null handling | A no-effect case emits the specified empty/null result without inventing an event | Distinguish omission, unsupported action, and valid no-result |
+| Knowledge boundaries | An NPC acts only on information with an established vector in the scene | A cited vector can be fabricated; assess source validity, with semantic review where needed |
+| State retention | Established identifiers and nonchanging values persist; expected deltas occur exactly once | Score against fixture facts, not prose plausibility |
+| Long-response adherence | Applicable constraints hold in early, middle, and late output segments | Report segment scores alongside whole-response scores |
 
-The token comparisons in section 8 are complete and reproducible. The controlled behavioral evaluation described in this section remains proposed; it would extend the available source evidence and development observations with matched output trials.
+Report passed applicable checks divided by all applicable checks, plus an all-required-checks pass rate per response. Publish omissions, wrong-target effects, unsupported knowledge, invalid state, and duplicated/missed updates separately. Estimate variation across independent fixtures or conversations; do not treat all correlated messages or fields as independent samples. Optional brief stage receipts can aid diagnosis in a separate instrumented condition, but change the prompt and do not certify private reasoning. Do not require disclosure of hidden chain of thought.
+
+### Component and position tests
+
+| Prediction | Matched intervention | Supporting or narrowing result |
+|---|---|---|
+| Operation legibility adds value | AO versus ASCII, with identical route and definitions | Higher AO adherence supports the chosen notation; parity narrows the glyph-specific claim |
+| Explicit routing adds value | Preserve rule bodies but remove page/call sequencing | Lower adherence without routing supports the traversal component even if ASCII matches Unicode |
+| Local re-entry helps middle sections | Place the same called body near the beginning, middle, or end; cross this with call presence | A smaller middle-position penalty with calls supports local re-entry; unchanged penalties weaken it |
+| Explicit iteration/nulls reduce ambiguity | Remove only loop scope or explicit no-result instructions | More missed targets or invented effects supports those operations |
+| Semantic fit preserves intended Ludus | Compare word labels, word-plus-emoji, emoji-only, and arbitrary-symbol state after the same definition | Fewer unsupported romantic cues with retained playfulness supports the semantic-loading component |
+
+The Ludus outcome is adherence to matrix-defined playfulness: a deliberate shift away from an automatic romantic association is success. Hold the numeric matrix, persona, relationship, scene, and model settings fixed. Score friendship/family scenes and Eros-supported romantic scenes separately. Failure means no improvement over matched controls, more unsupported romance, or loss of intended playfulness or context-appropriate expression.
+
+After the primary ladder, compare expanded prose, reconstructed compact base TRP, and AO under equivalent semantics. Run token-budget-matched diagnostics separately from the unchanged-wording notation swap to distinguish compression and context displacement. Record input/output tokens, latency, and cost; assess maintenance time and reference errors in a separate authoring study. Prose quality remains a blinded secondary outcome.
+
+The token comparisons in section 8 are complete. The ladder, event scorer, and ablations above are a proposed behavioral protocol, not completed experiments. A null marker result would not automatically reduce AO to a maintenance tool: explicit routing or local re-entry may still contribute. Those possibilities require their respective comparisons.
 
 ## 10. Engineering contribution
 
-The contribution is an implemented attention-oriented prompt design for **large, complex presets with staged reasoning and persistent simulation state**. Ryah's TRP-AO adaptation brings together compact instructions, distinctive semantic cues, explicit rule recall, and recurring state representations to address a practical failure mode: rules that remain in context but are inconsistently applied during play.
+TeleWire TRP-AO contributes an implemented **traversal syntax for dense prompts**: route specification, legible operation roles, local re-entry, and a persistent serialization contract. The page/function architecture makes the author’s intended processing route explicit. Targeted semantic loading extends that control to how recurring state is interpreted, as in Ludus/🎲.
 
-The overarching explanation is that defined, semantically compatible cues and stage-local recall make the intended reasoning route the path of least resistance through competing rules. This is why the method is attention-optimized: it aims to steer which rule is used and when, sustaining consistency as long-form RP context accumulates. Targeted semantic loading extends that approach into persistent state, where symbol selection can reinforce intended interpretations over successive turns. The Ludus/🎲 intervention demonstrates how the design is applied to unwanted romantic narrowing of a cross-relationship playfulness modifier.
+The named path-of-least-resistance hypothesis explains why the design is attention-optimized: the author attempts to make the relevant rule and next operation easier to select at each stage, sustaining adherence during long-form RP as context grows. The implementation establishes this design; the development A/B supplies motivating behavioral evidence; the token fixtures price its representation. The context-size ladder tests the predicted advantage over ASCII, and the ablations test which parts of the traversal account explain it.
 
-The token measurements establish that this design can retain compression relative to ordinary prose while allocating a premium over compact base TRP. The behavioral proposition is that this premium can buy more reliable use of a demanding specification. The scope, mechanism, development case, and evaluation protocol together provide a technical basis for testing and refining that proposition in Vexa-scale play.
+The contribution is therefore both an authoring method and a specific behavioral proposition. Its strongest predicted return is more dependable execution of a demanding specification at long context, measured through visible rule and state outcomes.
 
 ## References and reproducibility
 
@@ -433,3 +473,5 @@ Hashes identify the inspected sources without requiring disclosure of the privat
 **[13] Re-reading and reasoning.** Xu et al., [*Re-Reading Improves Reasoning in Large Language Models*](https://arxiv.org/abs/2309.06275), EMNLP (2024). Evaluates repeated question input and compatibility with thought-eliciting prompts. Motivates investigating stage-local rule recall; AO's symbolic references are a distinct proposed application.
 
 **[14] Long-context rationale and behavioral development account.** Ryah, November 4, 2026: path-of-least-resistance hypothesis; 20k+ instruction bodies and 100k+ narrative RP context target; same-model, same-prompt ASCII/AO comparison of 400 messages per condition with approximately 60% versus 95% reported consistency; qualitative failure-pattern observations; and experience in a Discord community of 500+ members across multiple models. Supplied directly for this revision; logs and scoring data were not independently reviewed.
+
+**[15] Traversal revision source check.** Cindy re-inspected the unchanged snapshot [1] on November 4, 2026, verifying boot protocol definitions, page/call/return notation, loop/null usage, tail check calls, anchor directives, the state final-check requirement, and the enabled `chat_history` host marker. Ryah supplied the traversal framing and suggested context ladder in the accompanying revision discussion. Static inspection verifies requested operations, not execution or memory allocation.
