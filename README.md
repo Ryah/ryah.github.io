@@ -18,7 +18,15 @@ GitHub Pages serves the root of `main`; `.nojekyll` keeps the files as written.
 
 To add a project, copy the `article.project` block in `index.html`, update its text, image, and links, and add a folder with an `index.html` if it needs its own page. Use relative links so a local preview works too.
 
-## Preview
+## Update Vexa downloads
+
+Open `index.html` and search for **VEXA DOWNLOAD LINKS**. All six download buttons are together there, grouped by SillyTavern, Lumiverse, and Tavo. In each group, the first `href=""` is **Full Package** and the second is **Regex Pack**.
+
+Paste your direct file URL inside the quotes, for example `href="https://example.com/Vexa.zip"`. Leave `href=""` empty to keep that button unavailable and labeled “Coming soon”. The page automatically changes a filled button to “Download ↓”. To take a link down later, empty its `href` again. Commit and push to `main` to publish. No build step is needed.
+
+The frontend colors live in the `Homepage downloads` block near the top of `assets/site.css`. Tavo uses the supplied exact gradient endpoints `#F26D5B` and `#121324`.
+
+## Preview locally
 
 From this folder, run `python -m http.server 8000` and open http://localhost:8000.
 Check both themes and a narrow phone viewport after editing.

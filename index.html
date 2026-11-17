@@ -21,7 +21,7 @@
     />
     <link rel="canonical" href="https://ryah.github.io/" />
     <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
-    <link rel="stylesheet" href="assets/site.css?v=reanimated3" />
+    <link rel="stylesheet" href="assets/site.css?v=downloads1" />
     <script src="assets/theme.js?v=reanimated2"></script>
     <link
       rel="preload"
@@ -45,7 +45,7 @@
             <path d="M13 2 3 14h8l-1 8 11-13h-8l1-7Z" /></svg></span
       ></a>
       <nav class="nav" aria-label="Main navigation">
-        <a href="#work">Projects</a><a href="vexa/">Vexa</a
+        <a href="#downloads">Downloads</a><a href="vexa/">Vexa</a
         ><a href="https://github.com/Ryah"
           >GitHub <span aria-hidden="true">&#8599;</span></a
         >
@@ -156,6 +156,50 @@
           </div>
         </article>
       </section>
+      <!-- VEXA DOWNLOAD LINKS: edit the six href="" values below.
+           Paste a direct file URL between the quotes. Leave empty for Coming soon.
+           Example: href="https://example.com/Vexa-Full-Package.zip"
+           No other edits or build step needed. -->
+      <section class="downloads-section wrap" id="downloads" aria-labelledby="downloads-heading">
+        <div class="section-heading">
+          <p class="eyebrow">Take Vexa home</p>
+          <h2 id="downloads-heading">Pick your playground.</h2>
+          <p class="downloads-intro">Choose your frontend. Grab the full package or just the regex pack.</p>
+        </div>
+        <div class="download-grid">
+          <article class="download-platform download-platform--st" aria-labelledby="download-st">
+            <h3 id="download-st">SillyTavern</h3>
+            <!-- SILLYTAVERN: Full Package, then Regex Pack -->
+            <a class="download-button" data-download href="" aria-label="SillyTavern Full Package"><span>Full Package</span><small>Coming soon</small></a>
+            <a class="download-button download-button--regex" data-download href="" aria-label="SillyTavern Regex Pack"><span>Regex Pack</span><small>Coming soon</small></a>
+          </article>
+          <article class="download-platform download-platform--lumi" aria-labelledby="download-lumi">
+            <h3 id="download-lumi">Lumiverse</h3>
+            <!-- LUMIVERSE: Full Package, then Regex Pack -->
+            <a class="download-button" data-download href="" aria-label="Lumiverse Full Package"><span>Full Package</span><small>Coming soon</small></a>
+            <a class="download-button download-button--regex" data-download href="" aria-label="Lumiverse Regex Pack"><span>Regex Pack</span><small>Coming soon</small></a>
+          </article>
+          <article class="download-platform download-platform--tavo" aria-labelledby="download-tavo">
+            <h3 id="download-tavo">Tavo</h3>
+            <!-- TAVO: Full Package, then Regex Pack -->
+            <a class="download-button" data-download href="" aria-label="Tavo Full Package"><span>Full Package</span><small>Coming soon</small></a>
+            <a class="download-button download-button--regex" data-download href="" aria-label="Tavo Regex Pack"><span>Regex Pack</span><small>Coming soon</small></a>
+          </article>
+        </div>
+      </section>
+      <script>
+        // A filled href makes its button live; empty links never reload the page.
+        document.querySelectorAll("[data-download]").forEach((link) => {
+          const available = Boolean(link.getAttribute("href").trim());
+          if (available) {
+            link.querySelector("small").textContent = "Download ↓";
+          } else {
+            link.removeAttribute("href");
+            link.setAttribute("role", "link");
+            link.setAttribute("aria-disabled", "true");
+          }
+        });
+      </script>
       <section
         class="research-section wrap"
         id="telewire"
