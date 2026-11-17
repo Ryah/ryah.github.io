@@ -25,6 +25,25 @@
   .download-button { border-radius: 12px; padding-inline: 3px; }
   .downloads-section { padding-block: 30px 55px; }
 }
+/* Vexa community invitation; follows the shared light/dark theme. */
+.vexa-community { padding-bottom: 90px; }
+.vexa-community-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+  padding: clamp(24px, 4vw, 48px);
+  border: 1px solid var(--line);
+  border-radius: 28px;
+  background: var(--surface);
+}
+.vexa-community-card h2 { margin: 14px 0; font-size: clamp(1.8rem, 3vw, 3rem); }
+.vexa-community-copy { max-width: 48ch; color: var(--muted); font-size: .95rem; }
+.vexa-community-card .button { flex-shrink: 0; }
+@media (max-width: 760px) {
+  .vexa-community { padding-bottom: 55px; }
+  .vexa-community-card { flex-direction: column; align-items: stretch; gap: 24px; }
+}
 @font-face {
   font-family: Space Grotesk;
   src: url("fonts/space-grotesk.ttf") format("truetype");
