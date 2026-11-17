@@ -20,7 +20,7 @@ To add a project, copy the `article.project` block in `index.html`, update its t
 
 ## Update Vexa downloads
 
-Open `index.html` and search for **VEXA DOWNLOAD LINKS**. All six download buttons are together there, grouped by SillyTavern, Lumiverse, and Tavo. In each group, the first `href=""` is **Full Package** and the second is **Regex Pack**.
+Downloads appear on both the homepage (`index.html`, `#downloads`) and the Vexa page (`vexa/index.html`, `#get-vexa`). Search for **VEXA DOWNLOAD LINKS** in each file. All six download buttons are together there, grouped by SillyTavern, Lumiverse, and Tavo. In each group, the first `href=""` is **Full Package** and the second is **Regex Pack**. Update both pages when publishing a release so their links stay in sync.
 
 Paste your direct file URL inside the quotes, for example `href="https://example.com/Vexa.zip"`. Leave `href=""` empty to keep that button unavailable and labeled “Coming soon”. The page automatically changes a filled button to “Download ↓”. To take a link down later, empty its `href` again. Commit and push to `main` to publish. No build step is needed.
 
