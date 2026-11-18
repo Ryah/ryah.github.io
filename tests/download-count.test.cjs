@@ -22,7 +22,7 @@ test('fresh cache reused and future link changes invalidate it',async()=>{
   const changed=await run({storage:first.storage,links:urls.map(u=>u.replace('/v1/','/v2/'))});assert.equal(changed.calls,1);
 });
 test('expired count is clearly marked when GitHub is rate-limited',async()=>{
-  const first=await run();const key=[...first.storage.keys()][0],record=JSON.parse(first.storage.get(key));record.at-=31*60*1000;first.storage.set(key,JSON.stringify(record));
+  const first=await run();const key=[...first.storage.keys()][0],record=JSON.parse(first.storage.get(key));record.at-=6*60*1000;first.storage.set(key,JSON.stringify(record));
   const {nodes,calls}=await run({storage:first.storage,fail:true});assert.equal(calls,1);assert.equal(nodes[0].total.textContent,'150');assert.match(nodes[0].note.textContent,/last available/);
 });
 test('network failures and missing assets never display a false zero or partial total',async()=>{

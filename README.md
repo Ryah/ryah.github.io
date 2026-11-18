@@ -67,7 +67,7 @@ The homepage project banner now uses the exact 16:7 `Neon Vexa Biotech Lab 16-7 
 
 ## Download counter
 
-`assets/download-count.js` reads GitHub's release-asset download counts for the unique files linked by the six download buttons. The homepage and Vexa page share a browser cache for 30 minutes. Changing the button URLs automatically selects the new release/files and invalidates the old cache. The shared ST/Tavo preset counts once; optional examples and checksums are excluded unless linked as a download button.
+`assets/download-count.js` reads GitHub's release-asset download counts for the unique files linked by the six download buttons. The homepage and Vexa page share a browser cache for 5 minutes. Changing the button URLs automatically selects the new release/files and invalidates the old cache. The shared ST/Tavo preset counts once; optional examples and checksums are excluded unless linked as a download button.
 
 The label is **file downloads**, not unique people or site visits. Repeated downloads count, including downloads made directly through GitHub. No token, analytics service or backend is required. The optional read-only API request never blocks downloads. On failure it shows an explicitly marked last available count for the same files, or hides the counter if no valid count is known. With JavaScript disabled, the download links still work and the counter stays hidden.
 

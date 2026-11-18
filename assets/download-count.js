@@ -1,7 +1,7 @@
 // GitHub counts downloads of release files, not visitors or unique people.
 // Infer the release and assets from the buttons so future link edits stay in sync.
 (async () => {
-  const lifetime = 30 * 60 * 1000;
+  const lifetime = 5 * 60 * 1000;
   const cacheKey = "vexa-download-count-v1";
   const requests = new Map();
 
@@ -54,7 +54,7 @@
       const show = (count, stale = false) => {
         counter.querySelector("[data-download-total]").textContent = new Intl.NumberFormat().format(count);
         counter.title = "GitHub downloads for the preset and regex files linked below. Repeat downloads count." +
-          (stale ? " Showing the last available count." : " Refreshed at most every 30 minutes.");
+          (stale ? " Showing the last available count." : " Refreshed at most every 5 minutes.");
         counter.querySelector("[data-download-count-note]").textContent = stale ? " · last available count" : "";
         counter.hidden = false;
       };
