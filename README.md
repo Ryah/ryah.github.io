@@ -64,3 +64,11 @@ Antithesis routing copy was checked against the local `Preset - VEXA.json` in Fr
 The November 2026 Vexa artwork selection uses four distinct scenes from the supplied `FrankenSIM 3.0 Promo/4/Vexa` folder: neon portrait, couch portrait, reading cover, and off-duty tablet scene. `assets/vexa-art-sources.json` maps the optimized WebP files back to the original filenames. Each has a 480px responsive variant; source PNGs are unchanged. The original branded banner remains the social sharing image.
 
 The homepage project banner now uses the exact 16:7 `Neon Vexa Biotech Lab 16-7 cropped.png` artwork, exported to WebP at 1888, 960, and 480px wide. This banner retains its full aspect ratio on mobile and disables hover zoom to preserve the bottom logo.
+
+## Download counter
+
+`assets/download-count.js` reads GitHub's release-asset download counts for the unique files linked by the six download buttons. The homepage and Vexa page share a browser cache for 30 minutes. Changing the button URLs automatically selects the new release/files and invalidates the old cache. The shared ST/Tavo preset counts once; optional examples and checksums are excluded unless linked as a download button.
+
+The label is **file downloads**, not unique people or site visits. Repeated downloads count, including downloads made directly through GitHub. No token, analytics service or backend is required. The optional read-only API request never blocks downloads. On failure it shows an explicitly marked last available count for the same files, or hides the counter if no valid count is known. With JavaScript disabled, the download links still work and the counter stays hidden.
+
+Run the dependency-free regression checks with `node --test tests/download-count.test.cjs`. They cover shared-asset deduplication, per-release request reuse, cache invalidation, rate-limit fallback, missing assets, blocked storage and genuine zero counts.

@@ -5,6 +5,8 @@
 /* Homepage downloads: keep all three frontends on one line. */
 .downloads-section { padding-block: 40px 90px; }
 .downloads-intro { max-width: 48ch; margin-top: 20px; color: var(--muted); }
+.download-count { margin-top: 18px; color: var(--muted); font-size: .85rem; }
+.download-count strong { color: var(--ink); font-size: 1.25rem; font-variant-numeric: tabular-nums; }
 .download-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; }
 .download-platform { --platform: #a11b1b; min-width: 0; border-top: 4px solid var(--platform); padding-top: 20px; }
 .download-platform--lumi { --platform: #8a64d6; }
