@@ -1,0 +1,264 @@
+{
+  "schema": {
+    "internal_states": [
+      "state:world",
+      "state:onscreen",
+      "state:offscreen_agendas",
+      "state:locations",
+      "state:entityMem",
+      "state:entity_state",
+      "state:thoughts",
+      "state:dam",
+      "state:pair",
+      "state:tracks",
+      "state:arc",
+      "state:chekhov",
+      "state:inv",
+      "state:story_notes",
+      "state:notebook",
+      "state:vent"
+    ],
+    "state:world": [
+      "ct",
+      "loc",
+      "time",
+      "date",
+      "weather",
+      "room",
+      "user_pos",
+      "entries",
+      "obstacles",
+      "audio",
+      "pacing"
+    ],
+    "state:onscreen": [
+      "ent_on"
+    ],
+    "ent_on": [
+      "name",
+      "parrott",
+      "residualMood",
+      "tfdy",
+      "salience",
+      "agenda",
+      "why",
+      "end",
+      "move"
+    ],
+    "state:offscreen_agendas": [
+      "ent_off"
+    ],
+    "ent_off": [
+      "name",
+      "loc",
+      "agenda",
+      "why",
+      "goal",
+      "end",
+      "mood",
+      "tfdy",
+      "salience"
+    ],
+    "state:locations": [
+      "map_index",
+      "loc_rend"
+    ],
+    "map_index": [
+      "active_map_id",
+      "active_level",
+      "map"
+    ],
+    "map": [
+      "id",
+      "name",
+      "level",
+      "main_exit"
+    ],
+    "level": [
+      "z",
+      "name"
+    ],
+    "loc_rend": [
+      "id",
+      "map_id",
+      "name",
+      "dim",
+      "bbox",
+      "anchor",
+      "features",
+      "adj",
+      "grid",
+      "occupants",
+      "exits"
+    ],
+    "state:entityMem": [
+      "ent_mem"
+    ],
+    "ent_mem": [
+      "name",
+      "mem"
+    ],
+    "state:entity_state": [
+      "ent_col"
+    ],
+    "ent_col": [
+      "name",
+      "fontColor",
+      "look",
+      "voice",
+      "persona",
+      "private"
+    ],
+    "state:thoughts": [
+      "ent_think"
+    ],
+    "ent_think": [
+      "name",
+      "tQ1",
+      "tQ2",
+      "tQ3",
+      "tQ4",
+      "tQ5"
+    ],
+    "state:dam": [
+      "ent_dam"
+    ],
+    "ent_dam": [
+      "pair",
+      "sluice",
+      "filters",
+      "misc",
+      "intent"
+    ],
+    "state:pair": [
+      "pair"
+    ],
+    "pair": [
+      "names",
+      "mode",
+      "dam",
+      "matrix",
+      "wall"
+    ],
+    "state:tracks": [
+      "main",
+      "track",
+      "history"
+    ],
+    "state:arc": [
+      "info",
+      "timeline",
+      "ki",
+      "sho",
+      "ten",
+      "ketsu"
+    ],
+    "ki": [
+      "beat"
+    ],
+    "sho": [
+      "beat"
+    ],
+    "ten": [
+      "beat"
+    ],
+    "ketsu": [
+      "beat"
+    ],
+    "state:chekhov": [
+      "chamber",
+      "locked",
+      "fired"
+    ],
+    "chamber": [
+      "bullet"
+    ],
+    "locked": [
+      "bullet"
+    ],
+    "fired": [
+      "bullet"
+    ],
+    "state:inv": [
+      "inv",
+      "titles",
+      "status"
+    ],
+    "state:story_notes": [
+      "threads",
+      "seeds",
+      "motives",
+      "horizon",
+      "GremlinNote",
+      "heckle"
+    ],
+    "state:notebook": [
+      "ent"
+    ],
+    "state:vent": [
+      "vent"
+    ]
+  },
+  "patterns": [
+    {
+      "name": "03 - Wrapper",
+      "pattern": "(?:<internal_states>\\s*)?(?=<state:world>\\s*<ct>[^<]*<\\/ct>\\s*<loc>\\s*([^<]*?)\\s*<\\/loc>\\s*<time>\\s*([^<]*?)\\s*<\\/time>\\s*(?:<date>\\s*([^<]*?)\\s*<\\/date>\\s*)?<weather>\\s*([^<]*?)\\s*<\\/weather>)(<state:world>[\\s\\S]*?<\\/state:vent>)(?:\\s*<\\/internal_states>)?",
+      "flags": "gi"
+    },
+    {
+      "name": "06 - Tabs - World",
+      "pattern": "<state:world>\\s*<ct>([\\s\\S]*?)</ct>\\s*<loc>([\\s\\S]*?)</loc>\\s*<time>([\\s\\S]*?)</time>\\s*(?:<date>([\\s\\S]*?)</date>\\s*)?<weather>([\\s\\S]*?)</weather>\\s*<room>([\\s\\S]*?)</room>\\s*<user_pos>([\\s\\S]*?)</user_pos>\\s*<entries>([\\s\\S]*?)</entries>\\s*<obstacles>([\\s\\S]*?)</obstacles>\\s*<audio>([\\s\\S]*?)</audio>\\s*<pacing>\\s*([\\s\\S]*?)\\s*<\\/pacing>\\s*</state:(?:world|onscreen)>",
+      "flags": "gi"
+    },
+    {
+      "name": "08 - Contents - On-Screen",
+      "pattern": "<ent_on>\\s*<name>([\\s\\S]*?)<\\/name>\\s*<parrott>([\\s\\S]*?)<\\/parrott>\\s*<residualMood>([\\s\\S]*?)<\\/residualMood>\\s*<tfdy>([\\s\\S]*?)<\\/tfdy>\\s*<salience>([\\s\\S]*?)<\\/salience>\\s*<agenda>([\\s\\S]*?)<\\/agenda>\\s*<why>([\\s\\S]*?)<\\/why>\\s*<end>([\\s\\S]*?)<\\/end>\\s*<move>([\\s\\S]*?)<\\/move>\\s*<\\/ent_on>",
+      "flags": "gi"
+    },
+    {
+      "name": "10 - Contents - Off-Screen",
+      "pattern": "<ent_off>\\s*<name>([\\s\\S]*?)<\\/name>\\s*<loc>([\\s\\S]*?)<\\/loc>\\s*<agenda>([\\s\\S]*?)<\\/agenda>\\s*<why>([\\s\\S]*?)<\\/why>\\s*<goal>([\\s\\S]*?)<\\/goal>\\s*<end>([\\s\\S]*?)<\\/end>\\s*<mood>(?:ParrotMood:\\s*)?([\\s\\S]*?)<\\/mood>\\s*<tfdy>([\\s\\S]*?)<\\/tfdy>\\s*<salience>(?:sal:\\s*)?([\\s\\S]*?)<\\/salience>\\s*<\\/ent_off>",
+      "flags": "gi"
+    },
+    {
+      "name": "18 - Contents - Entity State",
+      "pattern": "<ent_col>\\s*<name>([^<]*?)<\\/name>\\s*<fontColor>\\s*(?:Hex Color:\\s*)?(?:(?:cornflower|marigold|jade|orchid|rust|citrine|lilac|seafoam|peach|coral|matcha|electric|periwinkle|fuchsia|mint|blush)\\s+(?=#[0-9A-Fa-f]{6}\\s*<\\/fontColor>))?(#[0-9A-Fa-f]{6}|cornflower|marigold|jade|orchid|rust|citrine|lilac|seafoam|peach|coral|matcha|electric|periwinkle|fuchsia|mint|blush)\\s*<\\/fontColor>\\s*<look>([^<]*?)<\\/look>\\s*<voice>([^<]*?)<\\/voice>\\s*<persona>([^<]*?)<\\/persona>\\s*<private>([^<]*?)<\\/private>\\s*<\\/ent_col>",
+      "flags": "gi"
+    },
+    {
+      "name": "21 - Contents - Thoughts",
+      "pattern": "<ent_think>\\s*<name>([\\s\\S]*?)<\\/name>\\s*<tQ1>([\\s\\S]*?)<\\/tQ1>\\s*<tQ2>([\\s\\S]*?)<\\/tQ2>\\s*<tQ3>([\\s\\S]*?)<\\/tQ3>\\s*<tQ4>([\\s\\S]*?)<\\/tQ4>\\s*<tQ5>([\\s\\S]*?)<\\/tQ5>\\s*<\\/ent_think>",
+      "flags": "gi"
+    },
+    {
+      "name": "24 - Contents - Dam",
+      "pattern": "(?<![^\\s<>])(?:<ent_dam>\\s*)?(?:<pair>\\s*)?([^<>\\r\\n]*?→[^<>\\r\\n]*?)(?:\\s*<\\/pair>)?\\s*(?:<sluice>\\s*)?E:\\s*\\[?([a-z-]+|∅)\\]?\\s*L:\\s*\\[?([a-z-]+|∅)\\]?(?:\\s*<\\/sluice>)?\\s*(?:<filters>\\s*)?Soc:\\s*\\[?(hard|cracked|restricted|open|[hcro]|∅)\\]?\\s*((?:\\([^)]*\\)\\s*)*)Val:\\s*\\[?(hard|cracked|restricted|open|[hcro]|∅)\\]?\\s*((?:\\([^)]*\\)\\s*)*)Comp:\\s*\\[?(hard|cracked|restricted|open|[hcro]|∅)\\]?\\s*((?:\\([^)]*\\)\\s*)*)Rel:\\s*\\[?(hard|cracked|restricted|open|[hcro]|∅)\\]?\\s*((?:\\([^)]*\\)\\s*)*)(?:\\s*<\\/filters>)?\\s*(?:<misc>\\s*)?clash:\\s*\\[?(yes|y|no|—|∅)\\]?\\s*\\|\\s*T(?:ension)?:\\s*\\[?(yes|y|no|—|∅)\\]?(?:\\s*<\\/misc>)?\\s*(?:<intent>\\s*)?(?:intent:\\s*)?([\\s\\S]*?)(?=\\s*(?:<\\/intent>|<\\/ent_dam>|<\\/(?:state:dam|div)>|$))\\s*(?:<\\/intent>)?\\s*(?:<\\/ent_dam>)?",
+      "flags": "gi"
+    },
+    {
+      "name": "27 - Contents - Pair",
+      "pattern": "(?<![^\\s<>])(?:<(?:state:)?pair>\\s*)?(?:<names>\\s*)?([^<>\\r\\n]*?↔[^<>\\r\\n]*?)(?:\\s*<\\/names>)?\\s*(?:<mode>\\s*)?mode:\\s*\\[?([a-z-]+)\\]?(?:\\s*<\\/mode>)?\\s*(?:<dam>\\s*)?E:\\s*\\[?([a-z]+)\\]?\\s*L:\\s*\\[?([a-z]+)\\]?\\s*Gate:\\s*\\[?([a-z-]+)\\]?(?:\\s*<\\/dam>)?\\s*(?:<matrix>\\s*)?🌶️\\s*\\[?([+-]?\\d+)\\s*,\\s*([+−-]?\\d+|[+−-])\\]?\\s*🎲\\s*\\[?([+-]?\\d+)\\s*,\\s*([+−-]?\\d+|[+−-])\\]?\\s*🤝\\s*\\[?([+-]?\\d+)\\s*,\\s*([+−-]?\\d+|[+−-])\\]?\\s*🛠️\\s*\\[?([+-]?\\d+)\\s*,\\s*([+−-]?\\d+|[+−-])\\]?\\s*🏠\\s*\\[?([+-]?\\d+)\\s*,\\s*([+−-]?\\d+|[+−-])\\]?\\s*🕊️\\s*\\[?([+-]?\\d+)\\s*,\\s*([+−-]?\\d+|[+−-])\\]?\\s*😠\\s*\\[?([+-]?\\d+)\\s*,\\s*([+−-]?\\d+|[+−-])\\]?\\s*🥊\\s*\\[?([+-]?\\d+)\\s*,\\s*([+−-]?\\d+|[+−-])\\]?\\s*❄️\\s*\\[?([+-]?\\d+)\\s*,\\s*([+−-]?\\d+|[+−-])\\]?\\s*🪨\\s*\\[?([+-]?\\d+)\\s*,\\s*([+−-]?\\d+|[+−-])\\]?\\s*🌫️\\s*\\[?([+-]?\\d+)\\s*,\\s*([+−-]?\\d+|[+−-])\\]?\\s*🐍\\s*\\[?([+-]?\\d+)\\s*,\\s*([+−-]?\\d+|[+−-])\\]?(?:\\s*<\\/matrix>)?\\s*(?:<wall>\\s*)?(?:wall:\\s*)?\\[?([^<>\\]\\s]+)\\]?(?:\\s*<\\/wall>)?\\s*(?:<\\/pair>)?",
+      "flags": "gi"
+    },
+    {
+      "name": "36 - Contents - Arc",
+      "pattern": "<info>([\\s\\S]*?)<\\/info>\\s*<timeline>([\\s\\S]*?)<\\/timeline>\\s*<ki>([\\s\\S]*?)<\\/ki>\\s*<sho>([\\s\\S]*?)<\\/sho>\\s*<ten>([\\s\\S]*?)<\\/ten>\\s*<ketsu>([\\s\\S]*?)<\\/ketsu>",
+      "flags": "gi"
+    },
+    {
+      "name": "39 - Contents - Chekhov",
+      "pattern": "<chamber>([\\s\\S]*?)<\\/chamber>\\s*<locked>([\\s\\S]*?)<\\/locked>\\s*<fired>([\\s\\S]*?)<\\/fired>",
+      "flags": "gi"
+    },
+    {
+      "name": "42 - Contents - Inventory",
+      "pattern": "<inv>([\\s\\S]*?)<\\/inv>\\s*<titles>([\\s\\S]*?)<\\/titles>\\s*<status>([\\s\\S]*?)<\\/status>",
+      "flags": "gi"
+    },
+    {
+      "name": "45 - Contents - Story Notes",
+      "pattern": "<threads>([\\s\\S]*?)<\\/threads>\\s*<seeds>([\\s\\S]*?)<\\/seeds>\\s*<motives>([\\s\\S]*?)<\\/motives>\\s*<horizon>([\\s\\S]*?)<\\/horizon>\\s*<GremlinNote>([\\s\\S]*?)<\\/GremlinNote>\\s*<heckle>([\\s\\S]*?)<\\/heckle>",
+      "flags": "gi"
+    }
+  ]
+}

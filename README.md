@@ -18,6 +18,14 @@ GitHub Pages serves the root of `main`; `.nojekyll` keeps the files as written.
 
 To add a project, copy the `article.project` block in `index.html`, update its text, image, and links, and add a folder with an `index.html` if it needs its own page. Use relative links so a local preview works too.
 
+## Internal States repair & editor
+
+The tool lives at `/vexa/states/`, linked from the Vexa page. `vexa/states/index.html` is self-contained, including its font, schema and logic, and also works when opened offline. Pasted responses are not uploaded or saved to browser storage. Export or copy before closing the tab.
+
+Maintain `engine.js` (structural repair), `app.js` (forms), `page.template.html` (layout) and `contract.json` (template-derived field order plus selected detection patterns). Run `python vexa/states/build.py` to rebuild the standalone page and `node vexa/states/tests.mjs` for synthetic regression tests. No package install is required. Never edit the generated page directly.
+
+The contract was checked against the November 22, 2026 preset and November 23 template/example. Braille spaces are normalized for detection checks, matching the host's earlier normalization. Field text retains them. The tool repairs syntax and ordered fields; it does not invent absent state, fix narrative logic, or certify the complete host render pipeline. Ambiguous tags remain review items. Unknown markup is treated as text, never executed. The supplied conversation example and private preset prompts are not included in the site.
+
 ## Update Vexa downloads
 
 Downloads appear on both the homepage (`index.html`, `#downloads`) and the Vexa page (`vexa/index.html`, `#get-vexa`). Search for **VEXA DOWNLOAD LINKS** in each file. All six download buttons are together there, grouped by SillyTavern, Lumiverse, and Tavo. In each group, the first `href=""` is **Full Package** and the second is **Regex Pack**. Update both pages when publishing a release so their links stay in sync.
